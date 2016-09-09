@@ -1,0 +1,275 @@
+.about .img-circle {
+  height: 110px;
+  width: 110px;
+}
+
+.about h3 {
+  font-family: 'Shift', sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+
+body {
+    padding-top: 50px;
+}
+
+.breadcrumb {
+  background-color: transparent;
+}
+
+.business-header {
+  height: 240px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.business-header h1 {
+  padding-top: 25px;
+}
+
+/* Borrowed from Bootstrap template */
+.business-header p {
+  text-shadow: 0 0 10px #000;
+  color: #fff;
+  margin-left: 30px;
+  font-size: 20px;
+}
+
+.description p {
+  text-align: left;
+}
+
+footer {
+  width: 100%;
+  padding: 10px 5px 10px 5px;
+  text-align: center;
+  vertical-align: text-bottom;
+  margin-top: 50px;
+}
+
+.idb-content {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+.img-thumbnail {
+  height: 200px;
+  width: 200px;
+}
+
+.pillars {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.pillars h1 {
+  font-family: 'Shift', sans-serif;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.pillars h2 {
+  font-family: 'Shift', sans-serif;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.pillars .info {
+  margin-top: 30px;
+}
+
+.pillars .img-thumbnail {
+  height: 150px;
+  width: 300px;
+}
+
+.img-circle {
+  height: 200px;
+  width: 200px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.panel {
+  text-align: center;
+  font-family: 'Shift', sans-serif;
+  font-size: 20px;
+  color: white;
+  background-color: #D5D5D5;
+  border-bottom: 0;
+}
+
+.panel-tools {
+  font-size: 16px;
+  background-color: gray;
+}
+
+.tagline {
+  text-shadow: 0 0 10px #000;
+  color: #fff;
+  margin-left: 30px;
+  vertical-align: center;
+  font-size: 48px;
+  font-family: 'Shift', sans-serif;
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
+
+.buttons {
+  text-align: right;
+  padding-right: 70px;
+  margin-bottom: 60px;
+}
+
+.buttons button {
+  border: 0;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+span.glyphicon {
+  font-size: 2em;
+}
+
+table .img-circle {
+  height: 30px;
+  width: 30px;
+}
+
+.brand-mini img {
+  width: 40px;
+  height: 40px;
+}
+
+.copyright p {
+  text-align: center;
+  vertical-align: text-bottom;
+}
+
+.team-bio h1 {
+  font-size: 250%;
+  text-align: center;
+  font-family: 'Shift', sans-serif;
+  color: black;
+  padding-bottom: 0px;
+
+  margin-bottom: 20px;
+  /*background-color: #FFBB33;*/
+  margin-left: 0px;
+  margin-top: 50px;
+}
+
+.thumbnail img {
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  padding-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.thumbnail:hover {
+  background-color: #eeeeee;
+  opacity: .9;
+}
+
+.caption {
+  height: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.caption span {
+  color: #00b0ff;
+}
+
+.caption p {
+  color: #999;
+}
+
+.caption h3 {
+  text-align: center;
+  font-family: Georgia, serif;
+}
+
+.caption span.adds {
+  color: #6cc644;
+}
+
+.caption span.deletes {
+  color: #bd2c00;
+}
+
+/* main.html */
+
+.banner-con {
+    padding: 20px;
+}
+
+.banner {
+    height: 100px;
+    width: 500px;
+    opacity: .7;
+    background-position: center;
+    padding-top: 0px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.banner .img-thumbnail {
+  height: 110px;
+  width: 510px;
+}
+
+.banner h1 {
+    text-shadow: 0 0 20px #000;
+    padding-top: 30px;
+    margin: 0;
+    opacity: 0;
+    height: 100px;
+    width: 500px;
+    color: white;
+}
+
+.banner h1:hover {
+    opacity: 1;
+}
+
+.banner:hover {
+    opacity: 1;
+}
+
+/* episodes.html */
+
+.ep-banner {
+  height: 100px;
+  width: 200px;
+}
+
+.ep-banner:hover {
+  opacity: .75;
+}
+
+.ep-number {
+  height: 100px;
+  opacity: 0;
+}
+
+.ep-number:hover {
+  opacity: 1;
+  padding-top:30px;
+  color:white;
+}

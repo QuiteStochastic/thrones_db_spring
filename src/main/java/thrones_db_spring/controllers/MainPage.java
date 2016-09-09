@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by oliverlee
  */
-@RestController
+//@RestController
 public class MainPage {
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(){
 
 		System.out.println("hit main page");
+
+
 
 		return "<!DOCTYPE HTML>\n" +
 				"<html>" +
