@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by oliverlee
  */
 @Controller
-public class MainPage {
+public class MainPageController {
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -18,7 +18,7 @@ public class MainPage {
 
 
 		model.addAttribute("test", "hello spring");
-		return "mainpage";
+		return "main";
 		/*return "<!DOCTYPE HTML>\n" +
 				"<html>" +
 				"<head>\n" +
