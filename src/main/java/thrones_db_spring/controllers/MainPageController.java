@@ -15,19 +15,8 @@ public class MainPageController {
 	public String mainPage(Model model){
 
 		System.out.println("hit main page");
-
-
-		model.addAttribute("test", "hello spring");
+		//model.addAttribute("test", "hello spring");
 		return "main";
-		/*return "<!DOCTYPE HTML>\n" +
-				"<html>" +
-				"<head>\n" +
-				"    <title>Thrones DB Hello World</title>\n" +
-				"</head>\n" +
-				"<body>\n" +
-				"    <p>Hello spring boot</p>\n" +
-				"</body>\n" +
-				"</html>";*/
 	}
 
 

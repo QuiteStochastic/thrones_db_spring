@@ -1,12 +1,76 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Getting Started: Serving Web Content</title>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
 
-    <link rel="stylesheet" href="./css/tools.css" />
-</head>
-<body>
-    <p th:text="'testing mainpage, ' + ${test} + '!'" ></p>
-    <p>about page: <a href="/about.html">here</a></p>
-</body>
+<!--Main Page Header Fragment-->
+<header class="business-header" style="background: url(./images/westeros_astrolabe_sg32xFm.jpg) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Explore Westeros</h1>
+                <p>Follow the characters and events of the series.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Main Page Body Fragment -->
+<div class="container" layout:fragment="body">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-1">
+            <h2>Word of caution: <em>SPOILERS, EVERYWHERE.</em></h2>
+        </div>
+    </div>
+    <hr/>
+
+
+    <div class="row pillars" align="center">
+        <div class="col-sm-6 banner-con">
+            <a href="/characters" style="text-decoration:none">
+                <div class="banner" style="background-image: url(./images/banners/character_banner.png)">
+                    <h1>Characters</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 banner-con">
+            <a href="/organizations" style="text-decoration:none">
+                <div class="banner" style="background-image: url(./images/banners/organization_banner.png)">
+                    <h1>Organizations</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 banner-con">
+            <a href="/locations" style="text-decoration:none">
+                <div class="banner" style="background-image: url(./images/banners/location_banner.png)">
+                    <h1>Locations</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 banner-con">
+            <a href="/events" style="text-decoration:none">
+                <div class="banner" style="background-image: url(./images/banners/event_banner.png)">
+                    <h1>Events</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-sm-6 banner-con col-sm-offset-3">
+            <a href="/episodes" style="text-decoration:none">
+                <div class="banner" style="background-image: url(./images/banners/episode_banner.png)">
+                    <h1>Episodes</h1>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
 </html>
