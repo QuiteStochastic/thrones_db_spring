@@ -4,7 +4,7 @@
 <!--Header Fragment-->
 <!-- Image Background Page Header -->
 <!-- Note: The background image is set within the business-casual.css file. -->
-<header class="business-header" style="background: url(http://content.backgrounds.picaboo.com/download/10/0b/10b3b01613b947128ecfdd864e894c17/tmp_vintage_paper.jpg) center center no-repeat scroll;" layout:fragment="header">
+<header class="business-header" style="background: url(./images/background/vintage_paper.jpg) center center no-repeat scroll;" layout:fragment="header">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -148,32 +148,12 @@
 
 
 
+
+
+
 <!--Scripts Fragment-->
 <script layout:fragment="scripts">
 //<![CDATA[
-
-var result;
-    var request = new XMLHttpRequest();
-    request.onreadystatechange =
-    function () {
-        if (this.readyState === 4 && this.status == 200) {
-            result = this.responseText;
-        }
-    };
-
-// Handle requests to GitHub API
-function get_commits() {
-    request.open('GET', 'https://api.github.com/repos/QuiteStochastic/cs373-idb/stats/contributors',false);
-    request.send();
-    return result;
-}
-
-function get_issues() {
-    request.open('GET', 'https://api.github.com/repos/QuiteStochastic/cs373-idb/issues',false);
-    request.send();
-    return result;
-}
-
 var infoC = get_commits();
 commits = JSON.parse(infoC)
 olivercommits = commits[2]["total"];

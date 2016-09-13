@@ -28,10 +28,10 @@ public class PageController {
 		return "about";
 	}
 
-	@RequestMapping(path="/search",method = RequestMethod.GET)
+	@RequestMapping(path="/results",method = RequestMethod.GET)
 	public String searchPage(Model model) {
 
-		System.out.println("hit search page");
+		System.out.println("hit search results page");
 		//model.addAttribute("test", "hello spring");
 		return "search";
 	}
