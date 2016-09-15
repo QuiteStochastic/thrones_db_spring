@@ -1,4 +1,0 @@
-#/bin/bash
-
-mvn clean package
-java -jar ./target/thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application
