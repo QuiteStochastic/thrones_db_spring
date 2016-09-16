@@ -1,0 +1,122 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+
+
+<!-- Image Background Page Header -->
+<!-- Note: The background image is set within the business-casual.css file. -->
+<header class="business-header" style="background: url(./images/background/episodes_bg.jpg) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Episodes</h1>
+                <p>Summaries across four seasons.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li>Episodes</li>
+        </ol>
+    </div>
+</div>
+
+
+<div layout:fragment="body">
+    <!-- Toggle Button -->
+    <div class="container">
+        <div class="buttons col-md-10 col-md-offset-2">
+            <button class="grid"><span class="glyphicon glyphicon-th" aria-hidden="true"></span></button>
+            <button class="table-hover"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
+        </div>
+    </div>
+
+    <!-- Panels -->
+    <div class="container">
+        <div class="panel-group pic-grid" id="accordion" role="tablist" aria-multiselectable="true">
+
+            <div class="panel panel-default" th:each="x,iterStat : ${seasonList}"><!-- s{{x}} panel -->
+                <div class="panel-heading" role="tab" th:id="'heading'+${iterStat.index+1}"><!-- s{{x}} panel-heading -->
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapse'+${iterStat.index+1}" aria-expanded="true" th:attr="aria-controls='collapse'+${iterStat.index+1}" th:text="'Season ' + ${iterStat.index+1}"></a>
+                    </h4>
+                </div><!-- s{{x}} panel-heading -->
+                <div th:id="'collapse'+${iterStat.index+1}" class="panel-collapse collapse" role="tabpanel" th:attr="aria-labelledby='heading'+${iterStat.index+1}"><!-- s{{x}} panel-collapsable -->
+                    <div class="panel-body"><!-- s{{x}} panel-body -->
+                        <!-- Opening because initial episode -->
+                        <div class="row pillars"><!-- s{{x}} row pillars -->
+                            <div class="col-sm-1"></div>
+                            {%   set closed = False %}
+                            {%   for e in epsbyseason[x] %}
+                            {%     if e.episode_number is divisibleby 6 %}
+                            {%       set closed = False %}
+                            <!-- Opening because e.episode_number={{e.episode_number}} -->
+                            <div class="row pillars"><!-- s{{x}} row pillars -->
+                                <div class="col-sm-1"></div>
+                                {%     endif %}
+                                <div class="col-sm-2">
+                                    <a href="/episodes/{{e.ep_id}}" style="text-decorations:none">
+                                        <div class="img-rounded img-responsive img-center ep-banner" style="background-image: url(static/images/episodes/episode{{e.ep_id}}.png">
+                                            <h1 class="ep-number">{{e.ep_id}}</h1>
+                                        </div>
+                                    </a>
+                                </div>
+                                {%     if (e.episode_number + 1) is divisibleby 6 %}
+                                {%       set closed = True %}
+                                <!-- Closing because e.episode_number={{e.episode_number}} -->
+                            </div><!-- s{{x}} row pillars -->
+                            {%     endif %}
+                            {%   endfor %}
+                            {%   if not closed %}
+                            <!-- Closing because end of list -->
+                        </div><!-- s{{x}} row pillars -->
+                        {%   endif %}
+                    </div><!-- s{{x}} panel-body -->
+                </div><!-- s{{x}} panel-collapsable -->
+            </div><!-- s{{x}} panel -->
+        </div>
+    </div><!-- Panels -->
+
+
+
+    <!-- Table -->
+    <table class="row table table-hover hide tablesorter" id="tableView">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Season</th>
+            <th>Episode</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for e in episodes %}
+        <tr class="clickable-row" data-href="/episodes/{{e.ep_id}}">
+            <th>{{e.ep_id}}</th>
+            <td>{{e.name}}</td>
+            <td>{{e.season}}</td>
+            <td>{{e.episode_number}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!-- END CONTAINER -->
+
+
+<script layout:fragment="scripts">
+    document.getElementById("collapse1").setAttribute("class", "panel-collapse collapse in");
+    $("#tableView").tablesorter();
+</script>
+
+
+
+</html>

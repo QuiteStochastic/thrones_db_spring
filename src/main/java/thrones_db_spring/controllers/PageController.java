@@ -5,6 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import thrones_db_spring.model.Episode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oliverlee
@@ -104,7 +108,26 @@ public class PageController {
 	public String episodesPage(Model model){
 
 		System.out.println("hit episodes page");
-		//model.addAttribute("test", "hello spring");
+
+		List<Episode> s1List=new ArrayList<Episode>();
+		List<Episode> s2List=new ArrayList<Episode>();
+
+
+		s1List.add(new Episode(1,"test1",1,1,"test s1e1"));
+		s1List.add(new Episode(2,"test2",1,2,"test s1e2"));
+		s1List.add(new Episode(3,"test1",1,3,"test s1e3"));
+
+		s2List.add(new Episode(4,"test4",2,1,"test s2e1"));
+		s2List.add(new Episode(5,"test4",2,2,"test s2e2"));
+		s2List.add(new Episode(6,"test4",2,3,"test s2e3"));
+
+		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
+
+		seasonList.add(s1List);
+		seasonList.add(s2List);
+
+
+		model.addAttribute("seasonList", seasonList);
 		return "episodes";
 	}
 
