@@ -115,11 +115,11 @@ public class PageController {
 
 		s1List.add(new Episode(1,"test1",1,1,"test s1e1"));
 		s1List.add(new Episode(2,"test2",1,2,"test s1e2"));
-		s1List.add(new Episode(3,"test1",1,3,"test s1e3"));
+		s1List.add(new Episode(3,"test3",1,3,"test s1e3"));
 
-		s2List.add(new Episode(4,"test4",2,1,"test s2e1"));
-		s2List.add(new Episode(5,"test4",2,2,"test s2e2"));
-		s2List.add(new Episode(6,"test4",2,3,"test s2e3"));
+		s2List.add(new Episode(11,"test4",2,1,"test s2e1"));
+		s2List.add(new Episode(12,"test5",2,2,"test s2e2"));
+		s2List.add(new Episode(13,"test6",2,3,"test s2e3"));
 
 		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
 
