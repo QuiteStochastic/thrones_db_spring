@@ -8,7 +8,7 @@ import javax.persistence.Table;
  * Created by oliverlee
  */
 @Entity
-@Table(schema = "thronesdb_db", name = "episode")
+@Table(schema = "thrones_db_schema", name = "episode")
 public class Episode {
 
 
@@ -20,6 +20,10 @@ public class Episode {
 	private Integer episodeNumber;
 	private String description;
 
+
+	public Episode(){
+
+	}
 
 	public Episode(Integer epId, String name, Integer season, Integer episodeNumber, String description){
 
