@@ -1,11 +1,13 @@
 package thrones_db_spring.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import thrones_db_spring.model.Episode;
+import thrones_db_spring.model.repositories.EpisodeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.List;
  */
 @Controller
 public class PageController {
+
+	@Autowired
+	private EpisodeRepository episodeRepository;
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -109,7 +114,7 @@ public class PageController {
 
 		System.out.println("hit episodes page");
 
-		List<Episode> s1List=new ArrayList<Episode>();
+		/*List<Episode> s1List=new ArrayList<Episode>();
 		List<Episode> s2List=new ArrayList<Episode>();
 
 
@@ -124,7 +129,11 @@ public class PageController {
 		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
 
 		seasonList.add(s1List);
-		seasonList.add(s2List);
+		seasonList.add(s2List);*/
+
+		List<Episode> s1List=episodeRepository.getAllEpisodes();
+		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
+		seasonList.add(s1List);
 
 
 		model.addAttribute("seasonList", seasonList);
