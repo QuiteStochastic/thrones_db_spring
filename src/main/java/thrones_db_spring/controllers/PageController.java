@@ -131,10 +131,27 @@ public class PageController {
 		seasonList.add(s1List);
 		seasonList.add(s2List);*/
 
-		List<Episode> s1List=episodeRepository.getAllEpisodes();
-		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
-		seasonList.add(s1List);
+		//the allEpisodes list will be ordered by episode number, see the getAllEpisodes method.
+		// I ASSUME that in the data, episode n+1 is always either in either the same season or 1 (and exactly 1) season greater than episode n
+		// If this assumption is not true, code will fail to work.  given the domain and controlled data, it shouldn't be a problem
+		List<Episode> allEpisodes=episodeRepository.getAllEpisodes();
 
+		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
+
+		List<Episode> season=new ArrayList<Episode>();
+		int seasonIndex=1;
+		for(Episode e : allEpisodes){
+			if(e.getSeason()==seasonIndex){
+				season.add(e);
+			}
+			else{
+				seasonList.add(season);
+				season=new ArrayList<Episode>();
+				season.add(e);
+				seasonIndex++;
+			}
+		}
+		seasonList.add(season);
 
 		model.addAttribute("seasonList", seasonList);
 		return "episodes";

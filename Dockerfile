@@ -1,16 +1,27 @@
-FROM maven:3-jdk-8-alpine
+FROM ubuntu:16.04
 RUN mkdir /code
-ADD ./target/thrones_db_spring-1.0-SNAPSHOT.jar /code
 WORKDIR /code
 
-#RUN apt-get -y install sudo
-#RUN apt-get -y install postgresql
-#RUN update-rc.d postgresql defaults
-#RUN service postgresql start && \
-#	sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'gotswe';" && \
-#	sudo -u postgres PGPASSWORD=gotswe createdb housedowning -h 127.0.0.1 && \
-#	sudo python3 app.py --make-tables && \
-#	sudo -u postgres PGPASSWORD=gotswe psql -d housedowning -a -f ./raw_data/copy.sql
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get -y install apt-utils
+
+RUN apt-get -y update && \
+    apt-get -y install openjdk-8-jre && \
+    apt-get -y install sudo
+RUN apt-get -y install postgresql
+RUN update-rc.d postgresql defaults
+RUN service postgresql start && \
+	sudo -u postgres psql -c "CREATE ROLE thrones_db_user PASSWORD 'kingsguard';" && \
+	sudo -u postgres psql -c "CREATE SCHEMA thrones_db_schema AUTHORIZATION thrones_db_user;" && \
+	sudo -u postgres psql -c "ALTER ROLE thrones_db_user SET search_path = thrones_db_schema;" && \
+	sudo -u postgres psql -U thrones_db_user -c "CREATE DATABASE thronesdb_db WITH OWNER = thrones_db_user CONNECTION LIMIT = -1;" && \
+	sudo -u postgres psql -d thronesdb_db -U thrones_db_user -c "CREATE TABLE episode ( epId serial PRIMARY KEY NOT NULL, name character varying(500), season int,episodeNumber int, description text);" && \
+	sudo -u postgres psql -d thronesdb_db -U thrones_db_user -c "insert into episode (epId, name, season, episodeNumber, description) values (1,'test1-1',1,1,'describe1-1'), (2,'test1-2',1,2,'describe1-2'), (3,'test2-1',2,11,'describe2-1'), (4,'test2-2',2,12,'describe2-2');"
+
+ADD ./target/thrones_db_spring-1.0-SNAPSHOT.jar /code
+
 #EXPOSE 5432
 EXPOSE 8080
-CMD java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application
+CMD service postgresql start && \
+    java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application
