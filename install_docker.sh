@@ -1,4 +1,5 @@
-#/bin/bash
+#!/usr/bin/env bash
+
 
 #docker installation, just a general script for use on ubuntu, not particular to this project
 

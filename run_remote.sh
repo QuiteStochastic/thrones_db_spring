@@ -1,4 +1,4 @@
-#/bin/bash
+#!/usr/bin/env bash
 
 
 
@@ -14,14 +14,14 @@
 docker build -t thrones-server .
 
 ##this is just the exit code of previous command
-exit_code=$?;
+exit_code=$?
 
 
 
 
 
 
-if [[ $exit_code == 0 ]]
+if [[ ${exit_code} == 0 ]]
 then
     ##read in the IP and username of remote cloud service host from config.txt.  also read in the local path of the key needed to ssh access the remote host
     IFS=$'\n' read -d '' -r -a configs_array < ./config.txt
