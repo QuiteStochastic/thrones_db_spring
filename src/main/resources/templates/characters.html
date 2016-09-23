@@ -1,4 +1,4 @@
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorator="layout">
 
 <!-- Image Background Page Header -->
@@ -36,14 +36,15 @@
     <!-- Picture Grid -->
     <div class="row pic-grid">
         <div class="row pillars">
-            {% for character in characters %}
-            <div class="col-sm-4">
-                <a href="/characters/{{character.char_id}}">
-                    <img class="img-circle img-responsive img-center" src="./images/characters/character{{character.char_id}}.png"/>
+
+            <div class="col-sm-4" th:each="character : ${characterList}">
+                <a th:href="'/characters/'+${character.charId}">
+                    <img class="img-circle img-responsive img-center" th:src="'./images/characters/character'+${character.charId}+'.png'"/>
                 </a>
-                <h2>{{character.fullname()}}</h2>
+                <h2 th:text="${character.firstName}+${character.lastName}}"></h2>
             </div>
-            {% endfor %}
+
+
         </div>
     </div>
 
@@ -61,16 +62,14 @@
         </thead>
 
         <tbody>
-        {% for character in characters  %}
-        <tr class="clickable-row" data-href="/characters/{{character.char_id}}">
-            <td>{{character.char_id}}</td>
-            <td><div><img class="img-circle" src="./images/characters/character{{character.char_id}}.png"/></div></td>
-            <td>{{character.fullname()}}</td>
-            <td>{{character.gender}}</td>
-            <td>{{character.religion}}</td>
-            <td>{{character.status}}</td>
+        <tr th:each="character : ${characterList}" class="clickable-row" th:attr="data-href='/characters/'+${character.charId}">
+            <td th:text="${character.charId}"></td>
+            <td><div><img class="img-circle" th:src="'./images/characters/character'+${character.charId}.png"/></div></td>
+            <td th:text="${character.firstName}+${character.lastName}"></td>
+            <td th:text="${character.gender}"></td>
+            <td th:text="${character.religion}"></td>
+            <td th:text="${character.status}"></td>
         </tr>
-        {% endfor %}
         </tbody>
     </table>
 </div>

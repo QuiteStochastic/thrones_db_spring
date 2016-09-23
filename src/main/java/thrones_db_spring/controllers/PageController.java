@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import thrones_db_spring.model.Character;
 import thrones_db_spring.model.Episode;
+import thrones_db_spring.model.repositories.CharacterRepository;
 import thrones_db_spring.model.repositories.EpisodeRepository;
 
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ public class PageController {
 
 	@Autowired
 	private EpisodeRepository episodeRepository;
+
+	@Autowired
+	private CharacterRepository characterRepository;
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -49,7 +54,10 @@ public class PageController {
 	public String charactersPage(Model model){
 
 		System.out.println("hit characters page");
-		//model.addAttribute("test", "hello spring");
+
+		List<Character> characterList=characterRepository.getAllCharacters();
+		model.addAttribute("characterList", characterList);
+		
 		return "characters";
 	}
 

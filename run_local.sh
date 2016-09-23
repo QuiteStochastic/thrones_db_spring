@@ -3,7 +3,7 @@
 git pull
 
 ##build the jar
-#mvn clean package
+mvn clean package
 
 
 ##if we just wanted to run locally without docker the following is what we'd run
@@ -20,5 +20,6 @@ exit_code=$?
 
 if [[ ${exit_code} == 0 ]]
 then
+    echo "running thrones server"
     docker run -d -p 8080:8080 thrones-server
 fi
