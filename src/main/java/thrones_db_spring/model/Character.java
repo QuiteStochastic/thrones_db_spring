@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(schema = "thronesdb_db", name = "character")
+@Table(schema = "thrones_db_schema", name = "character")
 public class Character{
 
 	//primary key
