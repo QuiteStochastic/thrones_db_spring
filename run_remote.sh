@@ -7,9 +7,6 @@
 #mvn clean package
 
 
-##if we just wanted to run locally without docker the following is what we'd run
-#java -jar ./target/thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application
-
 ##build the docker image
 docker build -t thrones-server .
 

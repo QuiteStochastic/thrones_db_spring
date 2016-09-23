@@ -28,6 +28,10 @@ RUN service postgresql start && \
     sudo -u postgres psql -d thronesdb_db -c "ALTER TABLE thrones_db_schema.episode OWNER TO thrones_db_user;" && \
     sudo -u postgres psql -d thronesdb_db -c "COPY thrones_db_schema.episode FROM '/code/data/episode.csv' delimiter ',' csv;" && \
 
+    sudo -u postgres psql -d thronesdb_db -c "CREATE TABLE thrones_db_schema.character ( charId serial PRIMARY KEY NOT NULL, firstName character varying(255),lastName character varying(255),alias character varying(255),gender character varying(255),religion character varying(255), status character varying(255), description text);" && \
+    sudo -u postgres psql -d thronesdb_db -c "ALTER TABLE thrones_db_schema.character OWNER TO thrones_db_user;" && \
+    sudo -u postgres psql -d thronesdb_db -c "COPY thrones_db_schema.character FROM '/code/data/character.csv' delimiter ',' csv;" && \
+
     rm -rf /code/data
 
 	#sudo -u postgres psql -d thronesdb_db -c "insert into thrones_db_schema.episode (epId, name, season, episodeNumber, description) values (1,'test1-1',1,1,'describe1-1'), (2,'test1-2',1,2,'describe1-2'), (3,'test2-1',2,11,'describe2-1'), (4,'test2-2',2,12,'describe2-2');"
