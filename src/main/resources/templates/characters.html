@@ -65,7 +65,7 @@
         <tr th:each="character : ${characterList}" class="clickable-row" th:attr="data-href='/characters/'+${character.charId}">
             <td th:text="${character.charId}"></td>
             <td><div><img class="img-circle" th:src="'./images/characters/character'+${character.charId}+'.png'"/></div></td>
-            <td th:text="${character.firstName}+${character.lastName}"></td>
+            <td th:text="${character.firstName}+' +${character.lastName}"></td>
             <td th:text="${character.gender}"></td>
             <td th:text="${character.religion}"></td>
             <td th:text="${character.status}"></td>
