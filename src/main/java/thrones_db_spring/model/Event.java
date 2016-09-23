@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(schema = "thronesdb_db", name = "event")
+@Table(schema = "thrones_db_schema", name = "event")
 public class Event {
 
 	@Id
