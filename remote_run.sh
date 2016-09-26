@@ -4,7 +4,7 @@
 
 
 ##build the jar
-#mvn clean package
+mvn clean package
 
 
 ##build the docker image

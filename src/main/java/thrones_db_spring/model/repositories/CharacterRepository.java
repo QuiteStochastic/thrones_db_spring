@@ -61,4 +61,21 @@ public class CharacterRepository extends AbstractRepository{
 
 	}
 
+
+	public Character getCharacterById(Integer charId){
+		Session session = factory.openSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Character> cr = cb.createQuery(Character.class);
+		Root<Character> characterRoot=cr.from(Character.class);
+		cr.select(characterRoot);
+        cr.where(cb.equal(characterRoot.get("charId"),charId));
+
+
+		TypedQuery<Character> q = session.createQuery(cr);
+		Character character = q.getSingleResult();
+		session.close();
+		return character;
+
+	}
+
 }

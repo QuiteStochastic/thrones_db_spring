@@ -62,11 +62,17 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/characters/{characterId}",method = RequestMethod.GET)
-	public String charactersIndividualPage(Model model,@PathVariable String characterId){
+	public String charactersIndividualPage(Model model,@PathVariable Integer characterId){
 
 		System.out.println("hit individual_characters page");
 		//model.addAttribute("test", "hello spring");
-		return "individual_characters";
+
+        Character character=characterRepository.getCharacterById(characterId);
+
+        model.addAttribute("character", character);
+
+
+        return "individual_characters";
 	}
 
 	@RequestMapping(path="/organizations",method = RequestMethod.GET)

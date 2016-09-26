@@ -1,0 +1,97 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+
+<!-- Image Background Page Header -->
+<header class="business-header" style="background: url(/images/background/characters_bg.png) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Characters</h1>
+                <p>Players in the Game of Thrones.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/characters">Characters</a></li>
+            <li th:text="${character.firstName}+' '+ ${character.lastName}"></li>
+        </ol>
+    </div>
+</div>
+
+<!-- /.row -->
+<div class="container" layout:fragment="body">
+    <div class="row pillars">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h2 th:text="${character.firstName}+' '+ ${character.lastName}"></h2>
+            <img class="img-circle img-responsive img-center" th:src="'/images/characters/character'+${character.charId}+'.png'" alt=""/>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Attributes</h2>
+            <ul class="list-group">
+                <li class="list-group-item" th:inline="text"><strong>Alias:</strong> [[${character.alias}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Gender:</strong> [[${character.gender}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Religion:</strong> [[${character.religion}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Status:</strong> [[${character.status}]]</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="row pillars">
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <p th:text="${character.description}"></p>
+        </div>
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
+        </div>
+    </div>
+
+    <!-- RELATIONSHIPS -->
+    <div class="row">
+        <div class="group-con col-sm-8 col-sm-offset-2">
+            <div class="col-sm-4">
+                <h4>Affiliations</h4>
+            </div>
+            <div class="col-sm-4">
+                <h4>Places Visited</h4>
+            </div>
+            <div class="col-sm-4">
+                <h4>Events Partaken</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="group-con col-sm-8 col-sm-offset-2">
+            <div class="list-group col-sm-4">
+                {% for o in c.memberships %}
+                <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.org.name}}</a>
+                {% endfor %}
+            </div>
+            <div class="list-group col-sm-4">
+                {% for l in c.locations %}
+                <a href="/locations/{{l.loc_id}}" class="list-group-item">{{l.name}}</a>
+                {% endfor %}
+            </div>
+            <div class="list-group col-sm-4">
+                {% for e in c.events %}
+                <a href="/events/{{e.event_id}}" class="list-group-item">{{e.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container -->
+
+
+
+</html>
