@@ -6,7 +6,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
-import thrones_db_spring.model.Episode;
 import thrones_db_spring.model.Organization;
 
 import javax.annotation.PostConstruct;
