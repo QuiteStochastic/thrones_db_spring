@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import thrones_db_spring.model.Character;
 import thrones_db_spring.model.Episode;
+import thrones_db_spring.model.Organization;
 import thrones_db_spring.model.repositories.CharacterRepository;
 import thrones_db_spring.model.repositories.EpisodeRepository;
+import thrones_db_spring.model.repositories.OrganizationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,9 @@ public class PageController {
 
 	@Autowired
 	private CharacterRepository characterRepository;
+
+	@Autowired
+	private OrganizationRepository organizationRepository;
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -65,12 +70,9 @@ public class PageController {
 	public String charactersIndividualPage(Model model,@PathVariable Integer characterId){
 
 		System.out.println("hit individual_characters page");
-		//model.addAttribute("test", "hello spring");
 
         Character character=characterRepository.getCharacterById(characterId);
-
         model.addAttribute("character", character);
-
 
         return "individual_characters";
 	}
@@ -79,7 +81,9 @@ public class PageController {
 	public String organizationsPage(Model model){
 
 		System.out.println("hit organizations page");
-		//model.addAttribute("test", "hello spring");
+		List<Organization> organizationList=organizationRepository.getAllOrganizations();
+		model.addAttribute("organizationList", organizationList);
+
 		return "organizations";
 	}
 
@@ -128,23 +132,6 @@ public class PageController {
 
 		System.out.println("hit episodes page");
 
-		/*List<Episode> s1List=new ArrayList<Episode>();
-		List<Episode> s2List=new ArrayList<Episode>();
-
-
-		s1List.add(new Episode(1,"test1",1,1,"test s1e1"));
-		s1List.add(new Episode(2,"test2",1,2,"test s1e2"));
-		s1List.add(new Episode(3,"test3",1,3,"test s1e3"));
-
-		s2List.add(new Episode(11,"test4",2,1,"test s2e1"));
-		s2List.add(new Episode(12,"test5",2,2,"test s2e2"));
-		s2List.add(new Episode(13,"test6",2,3,"test s2e3"));
-
-		List<List<Episode>> seasonList=new ArrayList<List<Episode>>();
-
-		seasonList.add(s1List);
-		seasonList.add(s2List);*/
-
 		//the allEpisodes list will be ordered by episode number, see the getAllEpisodes method.
 		// I ASSUME that in the data, episode n+1 is always either in either the same season or 1 (and exactly 1) season greater than episode n
 		// If this assumption is not true, code will fail to work.  given the domain and controlled data, it shouldn't be a problem
@@ -175,12 +162,9 @@ public class PageController {
 	public String episodesIndividualPage(Model model,@PathVariable Integer episodeId){
 
 		System.out.println("hit individual_episodes page");
-		//model.addAttribute("test", "hello spring");
 
 		Episode episode=episodeRepository.getEpisodeById(episodeId);
-
 		model.addAttribute("episode", episode);
-
 
 		return "individual_episodes";
 	}
