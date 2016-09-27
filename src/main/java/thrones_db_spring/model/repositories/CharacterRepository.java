@@ -68,7 +68,7 @@ public class CharacterRepository extends AbstractRepository{
 		CriteriaQuery<Character> cr = cb.createQuery(Character.class);
 		Root<Character> characterRoot=cr.from(Character.class);
 		cr.select(characterRoot);
-        cr.where(cb.equal(characterRoot.get("charId"),charId));
+        cr.where(cb.equal(characterRoot.get("characterId"),charId));
 
 
 		TypedQuery<Character> q = session.createQuery(cr);

@@ -13,7 +13,7 @@ public class Character{
 
 	//primary key
 	@Id
-	private Integer charId;
+	private Integer characterId;
 
 	private String firstName;
 
@@ -40,12 +40,12 @@ public class Character{
 	private List<Event> events = new ArrayList<Event>();
 
 
-	public Integer getCharId() {
-		return charId;
+	public Integer getCharacterId() {
+		return characterId;
 	}
 
-	public void setCharId(Integer charId) {
-		this.charId = charId;
+	public void setCharacterId(Integer characterId) {
+		this.characterId = characterId;
 	}
 
 	public String getFirstName() {

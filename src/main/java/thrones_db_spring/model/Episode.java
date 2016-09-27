@@ -13,7 +13,7 @@ public class Episode {
 
 
 	@Id
-	private Integer epId;
+	private Integer episodeId;
 
 	private String name;
 	private Integer season;
@@ -27,7 +27,7 @@ public class Episode {
 
 	public Episode(Integer epId, String name, Integer season, Integer episodeNumber, String description){
 
-		this.epId=epId;
+		this.episodeId =epId;
 		this.name=name;
 		this.season=season;
 		this.episodeNumber=episodeNumber;
@@ -37,12 +37,12 @@ public class Episode {
 
 
 
-	public Integer getEpId() {
-		return epId;
+	public Integer getEpisodeId() {
+		return episodeId;
 	}
 
-	public void setEpId(Integer epId) {
-		this.epId = epId;
+	public void setEpisodeId(Integer episodeId) {
+		this.episodeId = episodeId;
 	}
 
 	public String getName() {

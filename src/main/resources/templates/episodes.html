@@ -57,9 +57,9 @@
                                     <div class="col-sm-1"></div>
 
                                     <div class="col-sm-2">
-                                        <a th:href="'/episodes/'+${e.epId}" style="text-decorations:none">
-                                            <div class="img-rounded img-responsive img-center ep-banner" th:style="'background-image: url(./images/episodes/episode'+${e.epId}+'.png'">
-                                                <h1 class="ep-number" th:text="${e.epId}"></h1>
+                                        <a th:href="'/episodes/'+${e.episodeId}" style="text-decorations:none">
+                                            <div class="img-rounded img-responsive img-center ep-banner" th:style="'background-image: url(./images/episodes/episode'+${e.episodeId}+'.png'">
+                                                <h1 class="ep-number" th:text="${e.episodeId}"></h1>
                                             </div>
                                         </a>
                                     </div>
@@ -86,8 +86,8 @@
 
 
             <tbody th:each="s : ${seasonList}">
-            <tr th:each="e: ${s}" class="clickable-row" th:attr="data-href='/episodes/'+${e.epId}">
-                <th th:text="${e.epId}"></th>
+            <tr th:each="e: ${s}" class="clickable-row" th:attr="data-href='/episodes/'+${e.episodeId}">
+                <th th:text="${e.episodeId}"></th>
                 <td th:text="${e.name}"></td>
                 <td th:text="${e.season}"></td>
                 <td th:text="${e.episodeNumber}"></td>

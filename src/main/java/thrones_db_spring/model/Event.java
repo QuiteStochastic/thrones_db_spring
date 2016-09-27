@@ -3,6 +3,7 @@ package thrones_db_spring.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created by oliverlee
@@ -32,10 +33,10 @@ public class Event {
 	private Event episode;
 
 	//backref= events, secondary =Participant
-	private Character characters;
+	private List<Character> characters;
 
 	//backref=events, secondary = Party
-	private Organization organizations;
+	private List<Organization> organizations;
 
 
 }
