@@ -87,4 +87,23 @@ public class EpisodeRepository extends AbstractRepository {
 		return episodeList;
 
 	}
+
+
+
+	public Episode getEpisodeById(Integer episodeId){
+		Session session = factory.openSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<Episode> cr = cb.createQuery(Episode.class);
+		Root<Episode> episodeRoot=cr.from(Episode.class);
+		cr.select(episodeRoot);
+		cr.where(cb.equal(episodeRoot.get("episodeId"),episodeId));
+
+
+		TypedQuery<Episode> q = session.createQuery(cr);
+		Episode episode = q.getSingleResult();
+		session.close();
+		return episode;
+
+	}
+
 }

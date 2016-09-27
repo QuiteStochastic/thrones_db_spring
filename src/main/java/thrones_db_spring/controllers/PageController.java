@@ -172,10 +172,16 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/episodes/{episodeId}",method = RequestMethod.GET)
-	public String episodesIndividualPage(Model model,@PathVariable String episodeId){
+	public String episodesIndividualPage(Model model,@PathVariable Integer episodeId){
 
 		System.out.println("hit individual_episodes page");
 		//model.addAttribute("test", "hello spring");
+
+		Episode episode=episodeRepository.getEpisodeById(episodeId);
+
+		model.addAttribute("episode", episode);
+
+
 		return "individual_episodes";
 	}
 

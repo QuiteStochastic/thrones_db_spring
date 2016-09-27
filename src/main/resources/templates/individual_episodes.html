@@ -1,0 +1,60 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+
+<!-- Image Background Page Header -->
+<header class="business-header" style="background: url(/images/background/episodes_bg.jpg) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Episodes</h1>
+                <p>Summaries across four seasons.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/episodes">Episodes</a></li>
+            <li th:text="${episode.name}"></li>
+        </ol>
+    </div>
+</div>
+
+
+<!-- /.row -->
+<div class="container" layout:fragment="body">
+    <div class="row pillars">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h2 th:text="${episode.name}"></h2>
+            <img class="img-thumbnail img-responsive img-center" th:src="'/images/episodes/episode'+${episode.episodeId}+'.png'" alt=""/>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Attributes</h2>
+            <ul class="list-group">
+                <li class="list-group-item" th:inline="text"><strong>Name:</strong> [[${episode.name}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Season:</strong> [[${episode.season}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Episode:</strong> [[${episode.episodeNumber}]]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- DESCRIPTION -->
+    <div class="row pillars">
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <p th:text="${episode.description}"></p>
+        </div>
+        <br/>
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
+        </div>
+    </div> <!-- /.row -->
+</div>
+<!-- /.container -->
+
+</html>
