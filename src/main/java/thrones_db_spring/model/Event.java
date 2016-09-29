@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(schema = "thrones_db_schema", name = "event")
-//@SecondaryTable(schema="thrones_db_schema",name="party","participant")
 public class Event {
 
 	@Id
@@ -29,7 +28,7 @@ public class Event {
 	//private Integer episodeId;
 	@ManyToOne
     @JoinColumn(name="episodeId")
-    private Event episode;
+    private Episode episode;
 
 
 	//backref= events, secondary =Participant
@@ -81,11 +80,11 @@ public class Event {
         this.location = location;
     }
 
-    public Event getEpisode() {
+    public Episode getEpisode() {
         return episode;
     }
 
-    public void setEpisode(Event episode) {
+    public void setEpisode(Episode episode) {
         this.episode = episode;
     }
 }

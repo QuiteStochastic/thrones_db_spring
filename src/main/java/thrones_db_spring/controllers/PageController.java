@@ -6,12 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import thrones_db_spring.model.*;
 import thrones_db_spring.model.Character;
-import thrones_db_spring.model.Episode;
-import thrones_db_spring.model.Organization;
-import thrones_db_spring.model.repositories.CharacterRepository;
-import thrones_db_spring.model.repositories.EpisodeRepository;
-import thrones_db_spring.model.repositories.OrganizationRepository;
+import thrones_db_spring.model.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,14 @@ public class PageController {
 
 	@Autowired
 	private OrganizationRepository organizationRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
+
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -100,31 +105,38 @@ public class PageController {
 	public String eventsPage(Model model){
 
 		System.out.println("hit events page");
-		//model.addAttribute("test", "hello spring");
-		return "events";
+        List<Event> eventList=eventRepository.getAllEvents();
+        model.addAttribute("eventList", eventList);
+
+
+        return "events";
 	}
 
 	@RequestMapping(path="/events/{eventId}",method = RequestMethod.GET)
-	public String eventsIndividualPage(Model model,@PathVariable String eventId){
+	public String eventsIndividualPage(Model model,@PathVariable Integer eventId){
 
 		System.out.println("hit individual_events page");
-		//model.addAttribute("test", "hello spring");
-		return "individual_events";
+        Event event=eventRepository.getEventById(eventId);
+        model.addAttribute("event", event);
+        return "individual_events";
 	}
 
 	@RequestMapping(path="/locations",method = RequestMethod.GET)
 	public String locationsPage(Model model){
 
 		System.out.println("hit locations page");
-		//model.addAttribute("test", "hello spring");
-		return "locations";
+
+        List<Location> locationList=locationRepository.getAllLocations();
+        model.addAttribute("locationList", locationList);
+        return "locations";
 	}
 
 	@RequestMapping(path="/locations/{locationId}",method = RequestMethod.GET)
-	public String locationsIndividualPage(Model model,@PathVariable String locationId){
+	public String locationsIndividualPage(Model model,@PathVariable Integer locationId){
 
 		System.out.println("hit individual_locations page");
-		//model.addAttribute("test", "hello spring");
+        Location location=locationRepository.getLocationById(locationId);
+        model.addAttribute("location", location);
 		return "individual_locations";
 	}
 

@@ -1,9 +1,6 @@
 package thrones_db_spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  * Created by oliverlee
@@ -18,12 +15,11 @@ public class Location {
     private String name;
     private String locationType;
     private String description;
-    //foreign key
-    //private Integer superiorLocationId;
 
+    @ManyToOne
+    @JoinColumn(name="superiorLocationId")
+    private Location superiorLocation;
 
-    //@Transient
-    //private Location superiorLoc;
 
     //secondary, visitor.  backref: locations
     //@Transient
@@ -59,5 +55,13 @@ public class Location {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Location getSuperiorLocation() {
+        return superiorLocation;
+    }
+
+    public void setSuperiorLocation(Location superiorLocation) {
+        this.superiorLocation = superiorLocation;
     }
 }
