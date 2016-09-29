@@ -20,26 +20,25 @@ public class Event {
 
 
 	//foreign key
-	private Integer locationId;
-
-	//backref=events
-	@OneToMany
-	private Location location;
+	//private Integer locationId;
+	@ManyToOne
+    @JoinColumn(name="locationId")
+    private Location location;
 
 	//foreign key
-	private Integer episodeId;
+	//private Integer episodeId;
+	@ManyToOne
+    @JoinColumn(name="episodeId")
+    private Event episode;
 
-	//backref=events
-	@OneToMany
-	private Event episode;
 
 	//backref= events, secondary =Participant
-	@ManyToMany
-	private List<Character> characters;
+	//@ManyToMany
+	//private List<Character> characters;
 
 	//backref=events, secondary = Party
-	@ManyToMany
-	private List<Organization> organizations;
+	//@ManyToMany
+	//private List<Organization> organizations;
 
 
 	public Integer getEventId() {
@@ -74,19 +73,19 @@ public class Event {
 		this.description = description;
 	}
 
-	public Integer getLocationId() {
-		return locationId;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	public void setLocationId(Integer locationId) {
-		this.locationId = locationId;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	public Integer getEpisodeId() {
-		return episodeId;
-	}
+    public Event getEpisode() {
+        return episode;
+    }
 
-	public void setEpisodeId(Integer episodeId) {
-		this.episodeId = episodeId;
-	}
+    public void setEpisode(Event episode) {
+        this.episode = episode;
+    }
 }

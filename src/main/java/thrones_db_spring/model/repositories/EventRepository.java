@@ -5,7 +5,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
+import thrones_db_spring.model.Episode;
 import thrones_db_spring.model.Event;
+import thrones_db_spring.model.Location;
 
 import javax.annotation.PostConstruct;
 import java.util.Properties;
@@ -32,6 +34,8 @@ public class EventRepository extends AbstractRepository{
 					.addPackage("thrones_db_spring.model")
 					.addProperties(prop)
 					.addAnnotatedClass(Event.class)
+					.addAnnotatedClass(Location.class)
+					.addAnnotatedClass(Episode.class)
 					.buildSessionFactory(serviceRegistry);
 		}
 		catch (Throwable ex) {
