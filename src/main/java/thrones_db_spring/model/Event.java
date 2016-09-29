@@ -1,8 +1,6 @@
 package thrones_db_spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(schema = "thrones_db_schema", name = "event")
+//@SecondaryTable(schema="thrones_db_schema",name="party","participant")
 public class Event {
 
 	@Id
@@ -24,19 +23,70 @@ public class Event {
 	private Integer locationId;
 
 	//backref=events
+	@OneToMany
 	private Location location;
 
 	//foreign key
-	private Integer episode_id;
+	private Integer episodeId;
 
 	//backref=events
+	@OneToMany
 	private Event episode;
 
 	//backref= events, secondary =Participant
+	@ManyToMany
 	private List<Character> characters;
 
 	//backref=events, secondary = Party
+	@ManyToMany
 	private List<Organization> organizations;
 
 
+	public Integer getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
+
+	public Integer getEpisodeId() {
+		return episodeId;
+	}
+
+	public void setEpisodeId(Integer episodeId) {
+		this.episodeId = episodeId;
+	}
 }
