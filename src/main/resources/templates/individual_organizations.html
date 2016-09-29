@@ -1,0 +1,82 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+
+
+<!-- Image Background Page Header -->
+<header class="business-header" style="background: url(/images/background/organizations_bg.jpg) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Organizations</h1>
+                <p>Houses, military organizations, political factions.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/organizations">Organizations</a></li>
+            <li th:text="${organization.name}"></li>
+        </ol>
+    </div>
+</div>
+
+<!-- /.row -->
+<div class="container" layout:fragment="body">
+    <div class="row pillars">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h2 th:text="${organization.name}"></h2>
+            <img class="img-circle img-responsive img-center" th:src="'/images/organizations/organization'+${organization.organizationId}+'.png'" alt=""/>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Attributes</h2>
+            <ul class="list-group">
+                <li class="list-group-item" th:inline="text"><strong>Leader:</strong> {% if org.leader %}<a th:href="'/characters/'+${organization.leaderCharacter.characterId}">[[${organization.leaderCharacter.firstName}+${organization.leaderCharacter.lastName}]]</a>{% else %}--{% endif %}</li>
+                <li class="list-group-item" th:inline="text"><strong>Location:</strong> {% if org.location is defined %}<a th:href="'/locations/'+${organization.seatLocation.locationId}">[[${organization.seatLocation.name}]]</a>{% else %}--{% endif %}</li>
+                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${organization.organizationType}]]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- DESCRIPTION -->
+    <div class="row pillars">
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <p th:text="${organization.description}"></p>
+        </div>
+        <br/>
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
+        </div>
+    </div>
+    <!-- RELATIONSHIPS -->
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-3">
+            <h4>Members</h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>Events Participated In</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="list-group col-sm-3 col-sm-offset-3" id="members">
+            {% for m in org.members %}
+            <a href="/characters/{{m.character_id}}" class="list-group-item">{{m.character.fullname()}}</a>
+            {% endfor %}
+        </div>
+        <div class="list-group col-sm-3" id="events">
+            {% for e in org.events %}
+            <a href="/events/{{e.event_id}}" class="list-group-item">{{e.name}}</a>
+            {% endfor %}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+
+</html>

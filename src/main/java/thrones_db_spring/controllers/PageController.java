@@ -88,10 +88,11 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/organizations/{organizationId}",method = RequestMethod.GET)
-	public String organizationsIndividualPage(Model model,@PathVariable String organizationId){
+	public String organizationsIndividualPage(Model model,@PathVariable Integer organizationId){
 
 		System.out.println("hit individual_organizations page");
-		//model.addAttribute("test", "hello spring");
+		Organization organization=organizationRepository.getOrganizationById(organizationId);
+		model.addAttribute("organization", organization);
 		return "individual_organizations";
 	}
 
