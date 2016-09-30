@@ -1,0 +1,76 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+
+<!-- Image Background Page Header -->
+<header class="business-header" style="background: url(/images/background/events_bg.png) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Events</h1>
+                <p>Battles, deaths, weddings.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/events">Events</a></li>
+            <li th:text="${event.name}"></li>
+        </ol>
+    </div>
+</div>
+
+
+<!-- /.row -->
+<div class="container" layout:fragment="body">
+    <div class="row pillars">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h2 th:text="${event.name}"></h2>
+            <img class="img-circle img-responsive img-center" th:src="'/images/events/event'+${event.eventId}+'.png'" alt=""/>
+        </div>
+        <div class="col-sm-4">
+            <h2>Attributes</h2>
+            <ul class="list-group">
+                <li class="list-group-item" th:inline="text"><strong>Location:</strong> {% if event.location is not defined %}--{% else %}<a th:href="'/events/'+${event.location.locationId}">{{event.location.name}}</a>{% endif %}</li>
+                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${event.eventType}]]</li>
+            </ul>
+        </div>
+    </div>
+    <!-- DESCRIPTION -->
+    <div class="row pillars">
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <p th:text="${event.description}"></p>
+        </div>
+        <br/>
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
+        </div>
+    </div>
+    <!-- RELATIONSHIPS -->
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-3">
+            <h4>Participants</h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>Parties</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group col-sm-3 col-sm-offset-3" id="participants">
+            {% for c in event.characters %}
+            <a href="/characters/{{c.char_id}}" class="list-group-item">{{c.fullname()}}</a>
+            {% endfor %}
+        </div>
+        <div class="list-group col-sm-3" id="parties">
+            {% for o in event.organizations %}
+            <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.name}}</a>
+            {% endfor %}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+
+</html>

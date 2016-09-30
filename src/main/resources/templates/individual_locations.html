@@ -1,0 +1,78 @@
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+
+
+<!-- Image Background Page Header -->
+<header class="business-header" style="background: url(/images/background/locations_bg.png) center center no-repeat scroll;" layout:fragment="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class = "tagline">Locations</h1>
+                <p>Castles, cities, and other landmarks.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Page Content -->
+<div class ="container" layout:fragment="breadcrumb">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/locations">Locations</a></li>
+            <li th:text="${location.name}"></li>
+        </ol>
+    </div>
+</div>
+
+<!-- /.row -->
+<div class="container" layout:fragment="body">
+    <div class="row pillars">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h2 th:text="${location.name}"></h2>
+            <img class="img-circle img-responsive img-center" th:src="'/images/locations/location'+${location.locationId}+'.png'" alt=""/>
+        </div>
+
+        <div class="col-sm-4">
+            <h2>Attributes</h2>
+            <ul class="list-group">
+                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.locationType}]]</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="row pillars">
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <p th:text="${location.description}"></p>
+        </div>
+        <br/>
+        <div class="col-sm-8 col-sm-offset-2 description">
+            <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
+        </div>
+    </div>
+    <!-- RELATIONSHIPS -->
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-3">
+            <h4>Visitors</h4>
+        </div>
+        <div class="col-sm-3">
+            <h4>Organizations</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group col-sm-3 col-sm-offset-3">
+            {% for v in loc.characters %}
+            <a href="/characters/{{v.char_id}}" class="list-group-item">{{v.fullname()}}</a>
+            {% endfor %}
+        </div>
+        <div class="list-group col-sm-3">
+            {% for o in loc.organizations %}
+            <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.name}}</a>
+            {% endfor %}
+        </div>
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+
+</html>

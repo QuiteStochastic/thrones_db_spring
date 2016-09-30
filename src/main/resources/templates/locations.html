@@ -1,27 +1,30 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorator="layout">
 
+
 <!-- Image Background Page Header -->
 <!-- Note: The background image is set within the business-casual.css file. -->
-<header class="business-header" style="background: url(/images/background/events_bg.png) center center no-repeat scroll;" layout:fragment="header">
+<header class="business-header" style="background: url(/images/background/locations_bg.png) center center no-repeat scroll;" layout:fragment="header">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class = "tagline">Events</h1>
-                <p>Battles, deaths, weddings.</p>
+                <h1 class = "tagline">Locations</h1>
+                <p>Castles, cities, and other landmarks.</p>
             </div>
         </div>
     </div>
 </header>
+
 
 <!-- Page Content -->
 <div class ="container" layout:fragment="breadcrumb">
     <div class="col-sm-12">
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li>Events</li>
+            <li>Locations</li>
         </ol>
     </div>
 </div>
+
 
 <!-- CONTAINER -->
 <div class="container" layout:fragment="body">
@@ -32,14 +35,16 @@
         <button class="table-hover"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></button>
     </div>
 
+    <!-- Picture Grid -->
     <div class="row pic-grid">
         <div class="row pillars">
 
-            <div class="col-sm-4" th:each="event :${eventList}">
-                <a th:href="'/events/'+${event.eventId}">
-                    <img class="img-circle img-responsive img-center" th:src="'/images/events/event'+${event.eventId}+'.png'"/>
+
+            <div class="col-sm-4" th:each="location :${locationList}">
+                <a th:href="'/locations/'+${location.locationId}">
+                    <img class="img-circle img-responsive img-center" th:src="'/images/locations/location'+${location.locationId}+'.png'"/>
                 </a>
-                <h2 th:text="${event.name}"></h2>
+                <h2 th:text="${location.name}"></h2>
             </div>
 
         </div>
@@ -58,19 +63,17 @@
 
         <tbody>
 
-        <tr class="clickable-row" th:each="event : ${eventList}" data-href="'/events/'+${event.eventId}">
-            <td th:text="${event.eventId}"></td>
-            <td><div><img class="img-circle" th:src="'/images/events/event'+${event.eventId}+'.png'"/></div></td>
-            <td th:text="${event.name}"></td>
-            <td th:text="${event.eventType}"></td>
+        <tr class="clickable-row" th:each="location:${locationList}" th:attr="data-href='/locations/'+${location.locationId}">
+            <td th:text="${location.locationId}"></td>
+            <td><div><img class="img-circle" th:src="'/images/locations/location'+${location.locationId}+'.png'"/></div></td>
+            <td th:text="${location.name}"></td>
+            <td th:text="${location.locationType}"></td>
         </tr>
 
         </tbody>
     </table>
-    <!-- TABLE END -->
-
 </div>
-<!-- CONTAINER END -->
+<!-- END CONTAINER -->
 
 
 <script layout:fragment="scripts">
