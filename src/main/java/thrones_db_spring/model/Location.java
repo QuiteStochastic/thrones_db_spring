@@ -38,6 +38,9 @@ public class Location {
     //@JoinColumn(name="seatLocationId")
     private List<Organization> organizationsHere;
 
+    @OneToMany(mappedBy = "superiorLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name="seatLocationId")
+    private List<Location> subordinateLocations;
 
 
     public Integer getLocationId() {
@@ -102,5 +105,13 @@ public class Location {
 
     public void setOrganizationsHere(List<Organization> organizationsHere) {
         this.organizationsHere = organizationsHere;
+    }
+
+    public List<Location> getSubordinateLocations() {
+        return subordinateLocations;
+    }
+
+    public void setSubordinateLocations(List<Location> subordinateLocations) {
+        this.subordinateLocations = subordinateLocations;
     }
 }

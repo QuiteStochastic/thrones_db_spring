@@ -36,8 +36,16 @@
         <div class="col-sm-4">
             <h2>Attributes</h2>
             <ul class="list-group">
-                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.locationType}]]</li>
-                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.superiorLocation.name}]]</li>
+                <li class="list-group-item" th:inline="text">
+                    <strong>Type:</strong> [[${location.locationType}]]
+                </li>
+
+                <li class="list-group-item" th:inline="text">
+                    <strong>Superior Location:</strong>
+                    <a th:if="${location.superiorLocation != null}" th:href="'/locations/'+${location.superiorLocation.locationId}" th:text="${location.superiorLocation.name}"></a>
+                    <span th:unless="${location.superiorLocation != null}">--</span>
+                </li>
+
 
             </ul>
         </div>
