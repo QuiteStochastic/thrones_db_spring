@@ -37,7 +37,7 @@
             <h2>Attributes</h2>
             <ul class="list-group">
                 <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.locationType}]]</li>
-                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.superiorLocation}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.superiorLocation.name}]]</li>
 
             </ul>
         </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="list-group col-sm-3">
 
-            <a th:each="organization :${organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
+            <a th:each="organization :${location.organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
 
         </div>
     </div><!-- /.row -->

@@ -33,12 +33,16 @@ public class Event {
 
 	//backref= events, secondary =Participant
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name="participant")
+    @JoinTable(name="participant",
+            joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
+            inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
     private List<Character> participants;
 
 	//backref=events, secondary = Party
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name="party")
+    @JoinTable(name="party",
+            joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
+            inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
 	private List<Organization> parties;
 
 

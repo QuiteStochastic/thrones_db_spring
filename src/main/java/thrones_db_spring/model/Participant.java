@@ -1,9 +1,6 @@
 package thrones_db_spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by oliverl1
@@ -13,12 +10,12 @@ import javax.persistence.Table;
 public class Participant {
 
     //foreign key
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="eventId")
     private Event event;
 
     //foreign key
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="characterId")
     private Character character;
 

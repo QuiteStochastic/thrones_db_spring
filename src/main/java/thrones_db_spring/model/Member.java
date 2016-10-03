@@ -18,11 +18,11 @@ public class Member {
 
     private Boolean active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="characterId")
     private Character character;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="organizationId")
     private Organization organization;
 
