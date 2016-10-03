@@ -20,24 +20,26 @@ public class Event {
 
 	//foreign key
 	//private Integer locationId;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="locationId")
     private Location location;
 
 	//foreign key
 	//private Integer episodeId;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="episodeId")
     private Episode episode;
 
 
 	//backref= events, secondary =Participant
-	//@ManyToMany
-	//private List<Character> characters;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="participant")
+    private List<Character> participants;
 
 	//backref=events, secondary = Party
-	//@ManyToMany
-	//private List<Organization> organizations;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="party")
+	private List<Organization> parties;
 
 
 	public Integer getEventId() {
@@ -86,5 +88,21 @@ public class Event {
 
     public void setEpisode(Episode episode) {
         this.episode = episode;
+    }
+
+    public List<Character> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Character> participants) {
+        this.participants = participants;
+    }
+
+    public List<Organization> getParties() {
+        return parties;
+    }
+
+    public void setParties(List<Organization> parties) {
+        this.parties = parties;
     }
 }

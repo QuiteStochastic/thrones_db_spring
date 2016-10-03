@@ -1,6 +1,7 @@
 package thrones_db_spring.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by oliverlee
@@ -16,14 +17,29 @@ public class Organization {
     private String description;
 
     //foreign key
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="seatLocationId")
     private Location seatLocation;
 
     //foreign key
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="leaderCharacterId")
     private Character leaderCharacter;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="member",
+            joinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"),
+            inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
+    private List<Character> members;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="party",
+            joinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"),
+            inverseJoinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"))
+    private List<Event> partyTo;
+
+
+
 
     public Integer getOrganizationId() {
         return organizationId;
@@ -71,5 +87,21 @@ public class Organization {
 
     public void setLeaderCharacter(Character leaderCharacter) {
         this.leaderCharacter = leaderCharacter;
+    }
+
+    public List<Character> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Character> members) {
+        this.members = members;
+    }
+
+    public List<Event> getPartyTo() {
+        return partyTo;
+    }
+
+    public void setPartyTo(List<Event> partyTo) {
+        this.partyTo = partyTo;
     }
 }

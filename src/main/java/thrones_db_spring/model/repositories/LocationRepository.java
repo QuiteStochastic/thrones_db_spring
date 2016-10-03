@@ -6,7 +6,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
-import thrones_db_spring.model.Location;
+import thrones_db_spring.model.*;
+import thrones_db_spring.model.Character;
 import thrones_db_spring.model.Location;
 
 import javax.annotation.PostConstruct;
@@ -39,7 +40,11 @@ public class LocationRepository extends AbstractRepository{
 					.addPackage("thrones_db_spring.model")
 					.addProperties(prop)
 					.addAnnotatedClass(Location.class)
-					.buildSessionFactory(serviceRegistry);
+                    .addAnnotatedClass(Character.class)
+                    .addAnnotatedClass(Event.class)
+                    .addAnnotatedClass(Organization.class)
+                    .addAnnotatedClass(Episode.class)
+                    .buildSessionFactory(serviceRegistry);
 		}
 		catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);

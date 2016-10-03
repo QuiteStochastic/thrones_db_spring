@@ -1,8 +1,7 @@
 package thrones_db_spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by oliverlee
@@ -19,6 +18,11 @@ public class Episode {
 	private Integer season;
 	private Integer episodeNumber;
 	private String description;
+
+
+    @OneToMany(mappedBy = "episode", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Event> eventsHappened;
+
 
 
 	public Episode(){
@@ -76,4 +80,12 @@ public class Episode {
 	public void setEpisodeNumber(Integer episodeNumber) {
 		this.episodeNumber = episodeNumber;
 	}
+
+    public List<Event> getEventsHappened() {
+        return eventsHappened;
+    }
+
+    public void setEventsHappened(List<Event> eventsHappened) {
+        this.eventsHappened = eventsHappened;
+    }
 }

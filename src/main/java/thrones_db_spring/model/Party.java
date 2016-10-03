@@ -1,15 +1,24 @@
 package thrones_db_spring.model;
 
-/**
- * Created by oliverl1 on 9/26/16.
- */
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema = "thrones_db_schema", name = "party")
 public class Party {
 
     //foreign key
-    private Integer organizationId;
+    @ManyToOne
+    @JoinColumn(name="organizationId")
+    private Organization organization;
 
     //foreign key
-    private Integer eventId;
+    @ManyToOne
+    @JoinColumn(name="eventId")
+    private Event event;
 
 
 }

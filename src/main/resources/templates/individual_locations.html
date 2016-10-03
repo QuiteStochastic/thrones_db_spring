@@ -37,6 +37,8 @@
             <h2>Attributes</h2>
             <ul class="list-group">
                 <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.locationType}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${location.superiorLocation}]]</li>
+
             </ul>
         </div>
     </div>
@@ -62,14 +64,14 @@
     </div>
     <div class="row">
         <div class="list-group col-sm-3 col-sm-offset-3">
-            {% for v in loc.characters %}
-            <a href="/characters/{{v.char_id}}" class="list-group-item">{{v.fullname()}}</a>
-            {% endfor %}
+
+            <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
+
         </div>
         <div class="list-group col-sm-3">
-            {% for o in loc.organizations %}
-            <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.name}}</a>
-            {% endfor %}
+
+            <a th:each="organization :${organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
+
         </div>
     </div><!-- /.row -->
 </div><!-- /.container -->

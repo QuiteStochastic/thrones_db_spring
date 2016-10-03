@@ -1,13 +1,38 @@
 package thrones_db_spring.model;
 
-/**
- * Created by oliverl1 on 9/26/16.
- */
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema = "thrones_db_schema", name = "visitor")
 public class Visitor {
 
     //foreign key
-    private Integer locationId;
+    @ManyToOne
+    @JoinColumn(name="locationId")
+    private Location location;
 
     //foreign key
-    private Integer characterId;
+    @ManyToOne
+    @JoinColumn(name="characterId")
+    private Character character;
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

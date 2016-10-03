@@ -47,9 +47,9 @@ RUN service postgresql start && \
 
 
 
-    sudo -u postgres psql -d thronesdb_db -c "CREATE TABLE thrones_db_schema.membership (memberId serial PRIMARY KEY NOT NULL,  rank character varying(255),  status character varying(255),  active boolean, characterId integer REFERENCES thrones_db_schema.character(characterId), organizationId integer REFERENCES thrones_db_schema.organization(organizationId)  );" && \
-    sudo -u postgres psql -d thronesdb_db -c "ALTER TABLE thrones_db_schema.membership OWNER TO thrones_db_user;" && \
-    sudo -u postgres psql -d thronesdb_db -c "COPY thrones_db_schema.membership FROM '/code/data/member.csv' delimiter ',' csv;" && \
+    sudo -u postgres psql -d thronesdb_db -c "CREATE TABLE thrones_db_schema.member (memberId serial PRIMARY KEY NOT NULL,  rank character varying(255),  status character varying(255),  active boolean, characterId integer REFERENCES thrones_db_schema.character(characterId), organizationId integer REFERENCES thrones_db_schema.organization(organizationId)  );" && \
+    sudo -u postgres psql -d thronesdb_db -c "ALTER TABLE thrones_db_schema.member OWNER TO thrones_db_user;" && \
+    sudo -u postgres psql -d thronesdb_db -c "COPY thrones_db_schema.member FROM '/code/data/member.csv' delimiter ',' csv;" && \
 
     sudo -u postgres psql -d thronesdb_db -c "CREATE TABLE thrones_db_schema.participant (characterId integer REFERENCES thrones_db_schema.character(characterId),eventId integer REFERENCES thrones_db_schema.event(eventId));" && \
     sudo -u postgres psql -d thronesdb_db -c "ALTER TABLE thrones_db_schema.participant OWNER TO thrones_db_user;" && \

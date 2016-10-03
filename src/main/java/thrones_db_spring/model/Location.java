@@ -1,6 +1,7 @@
 package thrones_db_spring.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by oliverlee
@@ -16,14 +17,28 @@ public class Location {
     private String locationType;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="superiorLocationId")
     private Location superiorLocation;
 
 
-    //secondary, visitor.  backref: locations
-    //@Transient
-    //private Character characters;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="visitor",
+            joinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"),
+            inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
+    private List<Character> charactersVisited;
+
+
+    @OneToMany(mappedBy = "location",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name="locationId")
+    private List<Event> eventsHappened;
+
+
+    @OneToMany(mappedBy = "seatLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name="seatLocationId")
+    private List<Organization> organizationsHere;
+
+
 
     public Integer getLocationId() {
         return locationId;
@@ -63,5 +78,29 @@ public class Location {
 
     public void setSuperiorLocation(Location superiorLocation) {
         this.superiorLocation = superiorLocation;
+    }
+
+    public List<Character> getCharactersVisited() {
+        return charactersVisited;
+    }
+
+    public void setCharactersVisited(List<Character> charactersVisited) {
+        this.charactersVisited = charactersVisited;
+    }
+
+    public List<Event> getEventsHappened() {
+        return eventsHappened;
+    }
+
+    public void setEventsHappened(List<Event> eventsHappened) {
+        this.eventsHappened = eventsHappened;
+    }
+
+    public List<Organization> getOrganizationsHere() {
+        return organizationsHere;
+    }
+
+    public void setOrganizationsHere(List<Organization> organizationsHere) {
+        this.organizationsHere = organizationsHere;
     }
 }

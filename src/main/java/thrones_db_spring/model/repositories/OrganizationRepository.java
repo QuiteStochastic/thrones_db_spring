@@ -6,9 +6,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
+import thrones_db_spring.model.*;
 import thrones_db_spring.model.Character;
-import thrones_db_spring.model.Location;
-import thrones_db_spring.model.Organization;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.TypedQuery;
@@ -41,6 +40,8 @@ public class OrganizationRepository extends AbstractRepository{
 					.addAnnotatedClass(Organization.class)
 					.addAnnotatedClass(Location.class)
                     .addAnnotatedClass(Character.class)
+                    .addAnnotatedClass(Event.class)
+                    .addAnnotatedClass(Episode.class)
                     .buildSessionFactory(serviceRegistry);
 		}
 		catch (Throwable ex) {

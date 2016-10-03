@@ -1,9 +1,6 @@
 package thrones_db_spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +26,25 @@ public class Character{
 
 	private String description;
 
-	@Transient
-	private List<Membership> affiliations = new ArrayList<Membership>();
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name="member",
+            joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
+            inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
+	private List<Organization> membershipOf;
 
-	@Transient
-	private List<Location> visited = new ArrayList<Location>();
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name="visitor",
+            joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
+            inverseJoinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"))
+	private List<Location> visited;
 
 
-	@Transient
-	private List<Event> events = new ArrayList<Event>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name="participant",
+            joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
+            inverseJoinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"))
+    private List<Event> participantOf;
+
 
 
 	public Integer getCharacterId() {
@@ -103,4 +110,28 @@ public class Character{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    public List<Organization> getMembershipOf() {
+        return membershipOf;
+    }
+
+    public void setMembershipOf(List<Organization> membershipOf) {
+        this.membershipOf = membershipOf;
+    }
+
+    public List<Location> getVisited() {
+        return visited;
+    }
+
+    public void setVisited(List<Location> visited) {
+        this.visited = visited;
+    }
+
+    public List<Event> getParticipantOf() {
+        return participantOf;
+    }
+
+    public void setParticipantOf(List<Event> participantOf) {
+        this.participantOf = participantOf;
+    }
 }
