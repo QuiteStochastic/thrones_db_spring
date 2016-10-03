@@ -72,15 +72,18 @@
     </div>
     <div class="row">
         <div class="list-group col-sm-3 col-sm-offset-3">
-
             <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
-
         </div>
+
         <div class="list-group col-sm-3">
-
             <a th:each="organization :${location.organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
-
         </div>
+
+        <div class="list-group col-sm-3">
+            <a th:each="location :${location.subordinateLocations}" th:href="'/locations/'+${location.locationId}" class="list-group-item" th:text="${location.name}"></a>
+        </div>
+
+
     </div><!-- /.row -->
 </div><!-- /.container -->
 

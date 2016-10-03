@@ -38,7 +38,7 @@
         <div class="col-sm-4">
             <h2>Attributes</h2>
             <ul class="list-group">
-                <li class="list-group-item" th:inline="text"><strong>Leader:</strong> {% if org.leader %}<a th:href="'/characters/'">organization.leaderCharacter.firstName organization.leaderCharacter.lastName</a>{% else %}--{% endif %}</li>
+                <li class="list-group-item" th:inline="text"><strong>Leader:</strong> <a th:if="" th:href="'/characters/'+${organization.leaderCharacter}">organization.leaderCharacter.firstName organization.leaderCharacter.lastName</a>{% else %}--{% endif %}</li>
                 <li class="list-group-item" th:inline="text"><strong>Location:</strong> {% if org.location is defined %}<a th:href="'/locations/'">organization.seatLocation.name</a>{% else %}--{% endif %}</li>
                 <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${organization.organizationType}]]</li>
             </ul>

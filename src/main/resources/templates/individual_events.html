@@ -34,8 +34,10 @@
         <div class="col-sm-4">
             <h2>Attributes</h2>
             <ul class="list-group">
-                <li class="list-group-item" th:inline="text"><strong>Location:</strong> {% if event.location is not defined %}--{% else %}<a th:href="'/events/'+${event.location.locationId}">{{event.location.name}}</a>{% endif %}</li>
+                <li class="list-group-item" th:inline="text"><strong>Location:</strong> <a th:href="'/events/'+${event.location.locationId}">[[${event.location.name}]]</a></li>
                 <li class="list-group-item" th:inline="text"><strong>Type:</strong> [[${event.eventType}]]</li>
+                <li class="list-group-item" th:inline="text"><strong>Episode:</strong> [[${event.episode.name}]]</li>
+
             </ul>
         </div>
     </div>
@@ -59,16 +61,16 @@
         </div>
     </div>
     <div class="row">
+
         <div class="list-group col-sm-3 col-sm-offset-3" id="participants">
-            {% for c in event.characters %}
-            <a href="/characters/{{c.char_id}}" class="list-group-item">{{c.fullname()}}</a>
-            {% endfor %}
+            <a th:each="participant : ${event.participants}" th:href="'/characters/'+${participant.characterId}" class="list-group-item" th:text="${participant.firstName}+' '+${participant.lastName}"></a>
         </div>
+
         <div class="list-group col-sm-3" id="parties">
-            {% for o in event.organizations %}
-            <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.name}}</a>
-            {% endfor %}
+            <a th:each="party : ${event.parties}" th:href="'/organization/'+${party.organizationId}" class="list-group-item" th:text="${party.name}"></a>
         </div>
+
+
     </div><!-- /.row -->
 </div><!-- /.container -->
 
