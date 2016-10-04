@@ -54,6 +54,22 @@
             <a href="http://gameofthrones.wikia.com/wiki/Game_of_Thrones_Wiki">- Game of Thrones Wiki</a>
         </div>
     </div> <!-- /.row -->
+
+
+    <!-- RELATIONSHIPS -->
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            <h4>Events Happened</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="list-group col-sm-3 col-sm-offset-2">
+            <a th:each="event : ${episode.eventsHappened}" th:href="'/events/'+${event.eventId}" class="list-group-item" th:text="${event.name}"></a>
+        </div>
+
+    </div><!-- /.row -->
+
+
 </div>
 <!-- /.container -->
 

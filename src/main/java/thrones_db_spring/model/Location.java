@@ -22,6 +22,8 @@ public class Location {
     private Location superiorLocation;
 
 
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="visitor",
             joinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"),
@@ -41,6 +43,8 @@ public class Location {
     @OneToMany(mappedBy = "superiorLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="seatLocationId")
     private List<Location> subordinateLocations;
+
+
 
 
     public Integer getLocationId() {

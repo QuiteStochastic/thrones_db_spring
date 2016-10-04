@@ -1,7 +1,6 @@
 package thrones_db_spring.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,7 +29,7 @@ public class Character{
 	@JoinTable(name="member",
             joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
-	private List<Organization> membershipOf;
+	private List<Organization> memberOf;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="visitor",
@@ -71,7 +70,21 @@ public class Character{
 		this.lastName = lastName;
 	}
 
-	public String getAlias() {
+    public String getFullName() {
+
+        if(firstName !=null && !firstName.isEmpty() && lastName !=null && !lastName.isEmpty()){
+            return firstName+" "+lastName;
+        }
+        else if(lastName == null || lastName.isEmpty()){
+            return firstName;
+        }
+        else{
+            return lastName;
+        }
+
+    }
+
+    public String getAlias() {
 		return alias;
 	}
 
@@ -111,12 +124,12 @@ public class Character{
 		this.description = description;
 	}
 
-    public List<Organization> getMembershipOf() {
-        return membershipOf;
+    public List<Organization> getMemberOf() {
+        return memberOf;
     }
 
-    public void setMembershipOf(List<Organization> membershipOf) {
-        this.membershipOf = membershipOf;
+    public void setMemberOf(List<Organization> memberOf) {
+        this.memberOf = memberOf;
     }
 
     public List<Location> getVisited() {

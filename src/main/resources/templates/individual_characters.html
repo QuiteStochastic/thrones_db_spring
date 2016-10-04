@@ -20,7 +20,7 @@
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
             <li><a href="/characters">Characters</a></li>
-            <li th:text="${character.firstName}+' '+ ${character.lastName}"></li>
+            <li th:text="${character.fullName}"></li>
         </ol>
     </div>
 </div>
@@ -29,7 +29,7 @@
 <div class="container" layout:fragment="body">
     <div class="row pillars">
         <div class="col-sm-3 col-sm-offset-2">
-            <h2 th:text="${character.firstName}+' '+ ${character.lastName}"></h2>
+            <h2 th:text="${character.fullName}"></h2>
             <img class="img-circle img-responsive img-center" th:src="'/images/characters/character'+${character.characterId}+'.png'" alt=""/>
         </div>
 
@@ -72,20 +72,19 @@
     <div class="row">
         <div class="group-con col-sm-8 col-sm-offset-2">
             <div class="list-group col-sm-4">
-                {% for o in c.memberships %}
-                <a href="/organizations/{{o.org_id}}" class="list-group-item">{{o.org.name}}</a>
-                {% endfor %}
+                <a th:each="organization : ${character.memberOf}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
             </div>
+
+
             <div class="list-group col-sm-4">
-                {% for l in c.locations %}
-                <a href="/locations/{{l.loc_id}}" class="list-group-item">{{l.name}}</a>
-                {% endfor %}
+                <a th:each="location : ${character.visited}" th:href="'/locations/'+${location.locationId}" class="list-group-item" th:text="${location.name}"></a>
             </div>
+
             <div class="list-group col-sm-4">
-                {% for e in c.events %}
-                <a href="/events/{{e.event_id}}" class="list-group-item">{{e.name}}</a>
-                {% endfor %}
+                <a th:each="event : ${character.participantOf}" th:href="'/events/'+${event.eventId}" class="list-group-item" th:text="${event.name}"></a>
             </div>
+
+
         </div>
     </div>
 </div>
