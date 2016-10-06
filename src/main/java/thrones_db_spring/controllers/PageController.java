@@ -1,22 +1,27 @@
 package thrones_db_spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.ViewResolver;
 import thrones_db_spring.model.*;
 import thrones_db_spring.model.Character;
 import thrones_db_spring.model.repositories.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * Created by oliverlee
  */
-@Controller
+@RestController
 public class PageController {
 
 	@Autowired
@@ -35,6 +40,12 @@ public class PageController {
     private LocationRepository locationRepository;
 
 
+    @Autowired
+    ViewResolver viewResolver;
+
+    Map<String,String> renderedCache=new HashMap<String, String>();
+
+
 
 	@RequestMapping(path="/",method = RequestMethod.GET)
 	public String mainPage(Model model){
@@ -45,11 +56,32 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/about",method = RequestMethod.GET)
-	public String aboutPage(Model model){
+	public String aboutPage(final HttpServletRequest req,final HttpServletResponse resp,Model model){
 
 		System.out.println("hit about page");
-		//model.addAttribute("test", "hello spring");
-		return "about";
+
+        if(renderedCache.containsKey("about")){
+            System.out.println("returning page from cache");
+            return renderedCache.get("about");
+        }
+        else{
+
+            View resolvedView;
+            MockHttpServletResponse mockResp = new MockHttpServletResponse();
+            try {
+                resolvedView = viewResolver.resolveViewName("about", Locale.US);
+                resolvedView.render(model.asMap(), req, mockResp);
+                //System.out.println("rendered html : " + mockResp.getContentAsString());
+                String page=mockResp.getContentAsString();
+                renderedCache.put("about",page);
+                return page;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "error";
+        }
+
 	}
 
 	@RequestMapping(path="/results",method = RequestMethod.GET)
@@ -61,25 +93,72 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/characters",method = RequestMethod.GET)
-	public String charactersPage(Model model){
+	public String charactersPage(final HttpServletRequest req,final HttpServletResponse resp, Model model){
 
 		System.out.println("hit characters page");
 
-		List<Character> characterList=characterRepository.getAllCharacters();
-		model.addAttribute("characterList", characterList);
+        if(renderedCache.containsKey("characters")){
+            System.out.println("returning page from cache");
+            return renderedCache.get("characters");
+        }
+        else{
+            List<Character> characterList=characterRepository.getAllCharacters();
+            model.addAttribute("characterList", characterList);
+
+
+            View resolvedView;
+            MockHttpServletResponse mockResp = new MockHttpServletResponse();
+            try {
+                resolvedView = viewResolver.resolveViewName("characters", Locale.US);
+                resolvedView.render(model.asMap(), req, mockResp);
+                //System.out.println("rendered html : " + mockResp.getContentAsString());
+                String page=mockResp.getContentAsString();
+                renderedCache.put("characters",page);
+                return page;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "error";
+        }
+
+
+
 		
-		return "characters";
 	}
 
 	@RequestMapping(path="/characters/{characterId}",method = RequestMethod.GET)
-	public String charactersIndividualPage(Model model,@PathVariable Integer characterId){
+	public String charactersIndividualPage(final HttpServletRequest req,final HttpServletResponse resp,Model model,@PathVariable Integer characterId){
 
 		System.out.println("hit individual_characters page");
 
-        Character character=characterRepository.getCharacterById(characterId);
-        model.addAttribute("character", character);
+        if(renderedCache.containsKey("characters"+characterId)){
+            System.out.println("returning page from cache");
+            return renderedCache.get("characters"+characterId);
+        }
+        else{
+            Character character=characterRepository.getCharacterById(characterId);
+            model.addAttribute("character", character);
 
-        return "individual_characters";
+
+            View resolvedView;
+            MockHttpServletResponse mockResp = new MockHttpServletResponse();
+            try {
+                resolvedView = viewResolver.resolveViewName("individual_characters", Locale.US);
+                resolvedView.render(model.asMap(), req, mockResp);
+                //System.out.println("rendered html : " + mockResp.getContentAsString());
+                String page=mockResp.getContentAsString();
+                renderedCache.put("characters"+characterId,page);
+                return page;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "error";
+        }
+
+
 	}
 
 	@RequestMapping(path="/organizations",method = RequestMethod.GET)

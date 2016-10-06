@@ -1,5 +1,8 @@
 package thrones_db_spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(schema = "thrones_db_schema", name = "member")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property = "@memberJsonId")
 public class Member {
 
     @Id
