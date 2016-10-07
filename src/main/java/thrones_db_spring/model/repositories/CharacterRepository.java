@@ -56,6 +56,8 @@ public class CharacterRepository extends AbstractRepository{
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<Character> cr = cb.createQuery(Character.class);
 		Root<Character> characterRoot=cr.from(Character.class);
+        //cr.multiselect(characterRoot.get("characterId"),characterRoot.get("firstName"),characterRoot.get("lastName"));
+
 		cr.select(characterRoot);
 
 

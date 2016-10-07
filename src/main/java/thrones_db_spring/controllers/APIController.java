@@ -3,16 +3,15 @@ package thrones_db_spring.controllers;
 import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import thrones_db_spring.model.Character;
 import thrones_db_spring.model.*;
 import thrones_db_spring.model.repositories.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by oliverl1
@@ -39,12 +38,15 @@ public class APIController {
     private LocationRepository locationRepository;
 
 
+    //private Map<String,String> cache=new HashMap<String, String>();
 
     @RequestMapping(path="/search",method = RequestMethod.GET)
-    public String searchPage() {
+    public String searchPage(@RequestParam String keyword) {
 
         System.out.println("hit search api page");
-        //model.addAttribute("test", "hello spring");
+
+
+
         return "search";
     }
 
@@ -53,6 +55,10 @@ public class APIController {
 
         System.out.println("hit characters api page");
 
+        /*if(cache.containsKey("characters")){
+            System.out.println("returning json from cache");
+            return cache.get("characters");
+        }*/
         return characterRepository.getAllCharacters();
     }
 
