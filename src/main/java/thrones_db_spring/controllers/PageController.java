@@ -55,21 +55,7 @@ public class PageController {
             return renderedCache.get("main");
         }
         else{
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("main", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("main",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"main","main");
         }
 	}
 
@@ -83,21 +69,7 @@ public class PageController {
             return renderedCache.get("about");
         }
         else{
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("about", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("about",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"about","about");
         }
 
 	}
@@ -123,29 +95,13 @@ public class PageController {
             List<Character> characterList=characterRepository.getAllCharacters();
             model.addAttribute("characterList", characterList);
 
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("characters", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("characters",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req, model,"characters","characters");
         }
-
-
-
 		
 	}
 
-	@RequestMapping(path="/characters/{characterId}",method = RequestMethod.GET)
+
+    @RequestMapping(path="/characters/{characterId}",method = RequestMethod.GET)
 	public String charactersIndividualPage(final HttpServletRequest req,final HttpServletResponse resp,Model model,@PathVariable Integer characterId){
 
 		System.out.println("hit individual_characters page");
@@ -157,26 +113,8 @@ public class PageController {
         else{
             Character character=characterRepository.getCharacterById(characterId);
             model.addAttribute("character", character);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("individual_characters", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("characters"+characterId,page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return "error";
+            return renderAndCachePage(req,model,"individual_characters","characters"+characterId);
         }
-
-
 	}
 
 	@RequestMapping(path="/organizations",method = RequestMethod.GET)
@@ -190,24 +128,8 @@ public class PageController {
         else {
             List<Organization> organizationList=organizationRepository.getAllOrganizations();
             model.addAttribute("organizationList", organizationList);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("organizations", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("organizations",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"organizations","organizations");
         }
-
 	}
 
 	@RequestMapping(path="/organizations/{organizationId}",method = RequestMethod.GET)
@@ -221,24 +143,8 @@ public class PageController {
         else {
             Organization organization=organizationRepository.getOrganizationById(organizationId);
             model.addAttribute("organization", organization);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("individual_organizations", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("organizations"+organizationId,page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"individual_organizations","organizations"+organizationId);
         }
-
 	}
 
 	@RequestMapping(path="/events",method = RequestMethod.GET)
@@ -252,24 +158,8 @@ public class PageController {
         else {
             List<Event> eventList=eventRepository.getAllEvents();
             model.addAttribute("eventList", eventList);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("events", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("events",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"events","events");
         }
-
 	}
 
 	@RequestMapping(path="/events/{eventId}",method = RequestMethod.GET)
@@ -283,24 +173,8 @@ public class PageController {
         else {
             Event event=eventRepository.getEventById(eventId);
             model.addAttribute("event", event);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("individual_events", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("events"+eventId,page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"individual_events","events"+eventId);
         }
-
 	}
 
 	@RequestMapping(path="/locations",method = RequestMethod.GET)
@@ -314,22 +188,7 @@ public class PageController {
         else {
             List<Location> locationList=locationRepository.getAllLocations();
             model.addAttribute("locationList", locationList);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("locations", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("locations",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"locations","locations");
         }
 
 	}
@@ -345,22 +204,7 @@ public class PageController {
         else {
             Location location=locationRepository.getLocationById(locationId);
             model.addAttribute("location", location);
-
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("individual_locations", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("locations"+locationId,page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
+            return renderAndCachePage(req,model,"individual_locations","locations"+locationId);
         }
 
 	}
@@ -398,26 +242,8 @@ public class PageController {
 
             model.addAttribute("seasonList", seasonList);
 
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("episodes", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("episodes",page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
-
+            return renderAndCachePage(req,model,"episodes","episodes");
         }
-
-
-
 	}
 
 	@RequestMapping(path="/episodes/{episodeId}",method = RequestMethod.GET)
@@ -431,24 +257,36 @@ public class PageController {
         else {
             Episode episode=episodeRepository.getEpisodeById(episodeId);
             model.addAttribute("episode", episode);
+            return renderAndCachePage(req,model,"individual_episodes","episodes"+episodeId);
 
-
-            View resolvedView;
-            MockHttpServletResponse mockResp = new MockHttpServletResponse();
-            try {
-                resolvedView = viewResolver.resolveViewName("individual_episodes", Locale.US);
-                resolvedView.render(model.asMap(), req, mockResp);
-                //System.out.println("rendered html : " + mockResp.getContentAsString());
-                String page=mockResp.getContentAsString();
-                renderedCache.put("episodes"+episodeId,page);
-                return page;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "error";
         }
 
 	}
+
+
+
+
+
+
+    private String renderAndCachePage(HttpServletRequest req, Model model,String templateName,String cacheKey) {
+
+
+        View resolvedView;
+        MockHttpServletResponse mockResp = new MockHttpServletResponse();
+        try {
+            resolvedView = viewResolver.resolveViewName(templateName, Locale.US);
+            resolvedView.render(model.asMap(), req, mockResp);
+            //System.out.println("rendered html : " + mockResp.getContentAsString());
+            String page=mockResp.getContentAsString();
+            renderedCache.put(cacheKey,page);
+            return page;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
+
 
 }
