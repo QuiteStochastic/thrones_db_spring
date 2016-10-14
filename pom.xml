@@ -14,6 +14,14 @@
         <version>1.4.0.RELEASE</version>
     </parent>
 
+
+    <properties>
+        <!-- The main class to start by executing java -jar -->
+        <start-class>thrones_db_spring.Application</start-class>
+    </properties>
+
+
+
     <dependencies>
 
 <!--        <dependency>

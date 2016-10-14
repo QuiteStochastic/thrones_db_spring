@@ -71,6 +71,6 @@ RUN service postgresql start && \
 ADD ./target/thrones_db_spring-1.0-SNAPSHOT.jar /code
 
 #EXPOSE 5432
-EXPOSE 8080
+EXPOSE 80
 CMD service postgresql start && \
-    java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application
+    java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application --server.port=80
