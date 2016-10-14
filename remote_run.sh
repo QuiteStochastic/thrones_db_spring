@@ -4,7 +4,7 @@
 
 
 ##build the jar
-mvn clean package
+#mvn clean package
 
 
 ##build the docker image
@@ -34,7 +34,7 @@ then
 
     ##send the docker image to remote host and run the new image on the remote host
 
-    docker save thrones-server | bzip2 | ssh -i "$key_path" "$remote_user"@"$remote_ip" 'bunzip2 | docker load; docker run -d -p 8080:8080 thrones-server'
+    docker save thrones-server | bzip2 | ssh -i "$key_path" "$remote_user"@"$remote_ip" 'bunzip2 | docker load; docker run -d -p 80:80 thrones-server'
 fi
 
 

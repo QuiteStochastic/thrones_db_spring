@@ -21,5 +21,5 @@ exit_code=$?
 if [[ ${exit_code} == 0 ]]
 then
     echo "running thrones server"
-    docker run -p 8080:8080 thrones-server
+    docker run -p 80:80 thrones-server
 fi
