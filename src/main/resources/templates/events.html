@@ -58,7 +58,7 @@
 
         <tbody>
 
-        <tr class="clickable-row" th:each="event : ${eventList}" data-href="'/events/'+${event.eventId}">
+        <tr class="clickable-row" th:each="event : ${eventList}" th:attr="data-href='/events/'+${event.eventId}">
             <td th:text="${event.eventId}"></td>
             <td><div><img class="img-circle" th:src="'/images/events/event'+${event.eventId}+'.png'"/></div></td>
             <td th:text="${event.name}"></td>
