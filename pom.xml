@@ -18,12 +18,7 @@
     <properties>
         <!-- The main class to start by executing java -jar -->
         <start-class>thrones_db_spring.Application</start-class>
-
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-
     </properties>
-
 
 
     <dependencies>
@@ -68,12 +63,6 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.11.41</version>
-        </dependency>
 
 
 
