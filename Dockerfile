@@ -8,7 +8,12 @@ RUN apt-get -y update && \
 
 RUN apt-get -y update && \
     apt-get -y install openjdk-8-jre && \
-    apt-get -y install sudo
+    apt-get -y install sudo && \
+    apt-get -y install dnsutils && \
+    apt-get -y install iputils-ping && \
+    apt-get -y install curl && \
+    apt-get -y install net-tools
+
 RUN apt-get -y install postgresql
 RUN update-rc.d postgresql defaults
 ADD ./src/main/resources/db/migration/ /code/data
@@ -72,5 +77,6 @@ ADD ./target/thrones_db_spring-1.0-SNAPSHOT.jar /code
 
 #EXPOSE 5432
 EXPOSE 80
-CMD service postgresql start && \
-    java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application --server.port=80
+CMD service postgresql start && tail -f /var/log/postgresql/postgresql-9.5-main.log 
+# && \
+#    java -jar ./thrones_db_spring-1.0-SNAPSHOT.jar thrones_db_spring.Application --server.port=80
