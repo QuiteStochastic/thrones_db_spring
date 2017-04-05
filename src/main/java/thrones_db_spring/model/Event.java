@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by oliverlee
@@ -40,14 +40,14 @@ public class Event {
     @JoinTable(name="participant",
             joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
-    private List<Character> participants;
+    private Set<Character> participants;
 
 	//backref=events, secondary = Party
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="party",
             joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
-	private List<Organization> parties;
+	private Set<Organization> parties;
 
 
 	public Integer getEventId() {
@@ -98,19 +98,19 @@ public class Event {
         this.episode = episode;
     }
 
-    public List<Character> getParticipants() {
+    public Set<Character> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Character> participants) {
+    public void setParticipants(Set<Character> participants) {
         this.participants = participants;
     }
 
-    public List<Organization> getParties() {
+    public Set<Organization> getParties() {
         return parties;
     }
 
-    public void setParties(List<Organization> parties) {
+    public void setParties(Set<Organization> parties) {
         this.parties = parties;
     }
 }

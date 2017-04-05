@@ -1,6 +1,8 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -21,13 +23,14 @@ public class Location {
     private String locationType;
     private String description;
 
+    @JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="superiorLocationId")
     private Location superiorLocation;
 
 
 
-
+    @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="visitor",
             joinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"),
