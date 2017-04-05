@@ -63,11 +63,11 @@
     <div class="row">
 
         <div class="list-group col-sm-3 col-sm-offset-2" id="participants">
-            <a th:each="participant : ${event.getParticipants()}" th:href="'/characters/'+${participant.characterId}" class="list-group-item" th:text="${participant.fullName}"></a>
+            <a th:each="participant : ${event.participants}" th:href="'/characters/'+${participant.characterId}" class="list-group-item" th:text="${participant.fullName}"></a>
         </div>
 
         <div class="list-group col-sm-3" id="parties">
-            <a th:each="party : ${event.getParties()}" th:href="'/organizations/'+${party.organizationId}" class="list-group-item" th:text="${party.name}"></a>
+            <a th:each="party : ${event.parties}" th:href="'/organizations/'+${party.organizationId}" class="list-group-item" th:text="${party.name}"></a>
         </div>
 
     </div><!-- /.row -->
