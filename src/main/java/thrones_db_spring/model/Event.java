@@ -56,7 +56,7 @@ public class Event {
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
     private List<Character> participants;*/
 
-	//@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="participant",
 			joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
 			inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
@@ -72,7 +72,7 @@ public class Event {
 	private List<Organization> parties;*/
 
 
-    //@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="participant",
             joinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"),
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
