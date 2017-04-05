@@ -41,7 +41,7 @@
     <div class="container">
         <div class="panel-group pic-grid" id="accordion" role="tablist" aria-multiselectable="true">
 
-            <div class="panel panel-default" th:each="season,iterStat : ${seasonList}">
+            <div class="panel panel-default" th:each="x,iterStat : ${seasonList}">
                 <div class="panel-heading" role="tab" th:id="'heading'+${iterStat.index+1}">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" th:href="'#collapse'+${iterStat.index+1}" aria-expanded="true" th:attr="aria-controls='collapse'+${iterStat.index+1}" th:text="'Season ' + ${iterStat.index+1}"></a>
@@ -49,24 +49,23 @@
                 </div>
                 <div th:id="'collapse'+${iterStat.index+1}" class="panel-collapse collapse" role="tabpanel" th:attr="aria-labelledby='heading'+${iterStat.index+1}">
                     <div class="panel-body">
-                        <!--<div class="row pillars">-->
-                            <!--<div class="col-sm-1"></div>-->
-                            <div th:each="e : ${season}">
+                        <div class="row pillars">
+                            <div class="col-sm-1"></div>
+                            <div th:each="e : ${x}">
+                                <div class="row pillars" if="${e.episodeNumber % 6}">
+                                    <div class="col-sm-1"></div>
 
-                                <div class="row pillars" th:if="${e.episodeNumber} % 5 == 1 and ${e.episodeNumber} != 1">
-                                    <!--<div class="col-sm-2"></div>-->
+                                    <div class="col-sm-2">
+                                        <a th:href="'/episodes/'+${e.episodeId}" style="text-decorations:none">
+                                            <div class="img-rounded img-responsive img-center ep-banner" th:style="'background-image: url(./images/episodes/episode'+${e.episodeId}+'.png'">
+                                                <h1 class="ep-number" th:text="${e.episodeId}"></h1>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
-
-                                <div class="col-sm-2">
-                                    <a th:href="'/episodes/'+${e.episodeId}" style="text-decorations:none">
-                                        <div class="img-rounded img-responsive img-center ep-banner" th:style="'background-image: url(./images/episodes/episode'+${e.episodeId}+'.png'">
-                                            <h1 class="ep-number" th:text="${e.episodeId}"></h1>
-                                        </div>
-                                    </a>
-                                </div>
-
                             </div>
-                        <!--</div>-->
+                        </div>
+
                     </div>
                 </div>
             </div>
