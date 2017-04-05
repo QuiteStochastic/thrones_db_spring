@@ -1,10 +1,12 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(schema = "thrones_db_schema", name = "character")
@@ -29,24 +31,27 @@ public class Character{
 
 	private String description;
 
+	@JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="member",
             joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
-	private List<Organization> memberOf;
+	private Set<Organization> memberOf;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="visitor",
             joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
             inverseJoinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"))
-	private List<Location> visited;
+	private Set<Location> visited;
 
 
+    @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="participant",
             joinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"),
             inverseJoinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"))
-    private List<Event> participantOf;
+    private Set<Event> participantOf;
 
 
 
@@ -128,27 +133,27 @@ public class Character{
 		this.description = description;
 	}
 
-    public List<Organization> getMemberOf() {
-        return memberOf;
-    }
+	public Set<Organization> getMemberOf() {
+		return memberOf;
+	}
 
-    public void setMemberOf(List<Organization> memberOf) {
-        this.memberOf = memberOf;
-    }
+	public void setMemberOf(Set<Organization> memberOf) {
+		this.memberOf = memberOf;
+	}
 
-    public List<Location> getVisited() {
-        return visited;
-    }
+	public Set<Location> getVisited() {
+		return visited;
+	}
 
-    public void setVisited(List<Location> visited) {
-        this.visited = visited;
-    }
+	public void setVisited(Set<Location> visited) {
+		this.visited = visited;
+	}
 
-    public List<Event> getParticipantOf() {
-        return participantOf;
-    }
+	public Set<Event> getParticipantOf() {
+		return participantOf;
+	}
 
-    public void setParticipantOf(List<Event> participantOf) {
-        this.participantOf = participantOf;
-    }
+	public void setParticipantOf(Set<Event> participantOf) {
+		this.participantOf = participantOf;
+	}
 }

@@ -1,10 +1,12 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by oliverlee
@@ -20,27 +22,31 @@ public class Organization {
     private String organizationType;
     private String description;
 
+    @JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
     //foreign key
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="seatLocationId")
     private Location seatLocation;
 
+    @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     //foreign key
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="leaderCharacterId")
     private Character leaderCharacter;
 
+    @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="member",
             joinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"),
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
-    private List<Character> members;
+    private Set<Character> members;
 
+    @JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="party",
             joinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"),
             inverseJoinColumns=@JoinColumn(name="eventId", referencedColumnName="eventId"))
-    private List<Event> partyTo;
+    private Set<Event> partyTo;
 
 
 
@@ -93,19 +99,19 @@ public class Organization {
         this.leaderCharacter = leaderCharacter;
     }
 
-    public List<Character> getMembers() {
+    public Set<Character> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Character> members) {
+    public void setMembers(Set<Character> members) {
         this.members = members;
     }
 
-    public List<Event> getPartyTo() {
+    public Set<Event> getPartyTo() {
         return partyTo;
     }
 
-    public void setPartyTo(List<Event> partyTo) {
+    public void setPartyTo(Set<Event> partyTo) {
         this.partyTo = partyTo;
     }
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by oliverlee
@@ -35,21 +36,25 @@ public class Location {
     @JoinTable(name="visitor",
             joinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"),
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
-    private List<Character> charactersVisited;
+    private Set<Character> charactersVisited;
 
 
+    @JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @OneToMany(mappedBy = "location",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="locationId")
-    private List<Event> eventsHappened;
+    private Set<Event> eventsHappened;
 
 
+    @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @OneToMany(mappedBy = "seatLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="seatLocationId")
-    private List<Organization> organizationsHere;
+    private Set<Organization> organizationsHere;
 
+
+    @JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
     @OneToMany(mappedBy = "superiorLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="seatLocationId")
-    private List<Location> subordinateLocations;
+    private Set<Location> subordinateLocations;
 
 
 
@@ -94,35 +99,36 @@ public class Location {
         this.superiorLocation = superiorLocation;
     }
 
-    public List<Character> getCharactersVisited() {
+
+    public Set<Character> getCharactersVisited() {
         return charactersVisited;
     }
 
-    public void setCharactersVisited(List<Character> charactersVisited) {
+    public void setCharactersVisited(Set<Character> charactersVisited) {
         this.charactersVisited = charactersVisited;
     }
 
-    public List<Event> getEventsHappened() {
+    public Set<Event> getEventsHappened() {
         return eventsHappened;
     }
 
-    public void setEventsHappened(List<Event> eventsHappened) {
+    public void setEventsHappened(Set<Event> eventsHappened) {
         this.eventsHappened = eventsHappened;
     }
 
-    public List<Organization> getOrganizationsHere() {
+    public Set<Organization> getOrganizationsHere() {
         return organizationsHere;
     }
 
-    public void setOrganizationsHere(List<Organization> organizationsHere) {
+    public void setOrganizationsHere(Set<Organization> organizationsHere) {
         this.organizationsHere = organizationsHere;
     }
 
-    public List<Location> getSubordinateLocations() {
+    public Set<Location> getSubordinateLocations() {
         return subordinateLocations;
     }
 
-    public void setSubordinateLocations(List<Location> subordinateLocations) {
+    public void setSubordinateLocations(Set<Location> subordinateLocations) {
         this.subordinateLocations = subordinateLocations;
     }
 }

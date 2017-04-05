@@ -1,10 +1,12 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by oliverlee
@@ -23,9 +25,9 @@ public class Episode {
 	private Integer episodeNumber;
 	private String description;
 
-
+	@JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @OneToMany(mappedBy = "episode", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Event> eventsHappened;
+    private Set<Event> eventsHappened;
 
 
 
@@ -85,11 +87,11 @@ public class Episode {
 		this.episodeNumber = episodeNumber;
 	}
 
-    public List<Event> getEventsHappened() {
-        return eventsHappened;
-    }
+	public Set<Event> getEventsHappened() {
+		return eventsHappened;
+	}
 
-    public void setEventsHappened(List<Event> eventsHappened) {
-        this.eventsHappened = eventsHappened;
-    }
+	public void setEventsHappened(Set<Event> eventsHappened) {
+		this.eventsHappened = eventsHappened;
+	}
 }
