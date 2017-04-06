@@ -63,36 +63,37 @@
     </div>
     <!-- RELATIONSHIPS -->
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-2">
+        <div class="col-sm-4">
             <h4>Visitors</h4>
+            <div class="list-group">
+                <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
+            </div>
         </div>
-        <div class="col-sm-3">
+
+
+        <div class="col-sm-4">
             <h4>Organizations</h4>
+            <div class="list-group">
+                <a th:each="organization :${location.organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
+            </div>
+
         </div>
-        <div class="col-sm-3">
+
+        <div class="col-sm-4">
             <h4>Subordinate Locations</h4>
-        </div>
-        <!--<div class="col-sm-3">-->
-            <!--<h4>Events Occurred Here</h4>-->
-        <!--</div>-->
-    </div>
-    <div class="row">
-        <div class="list-group col-sm-3 col-sm-offset-2">
-            <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
+            <div class="list-group">
+                <a th:each="location :${location.subordinateLocations}" th:href="'/locations/'+${location.locationId}" class="list-group-item" th:text="${location.name}"></a>
+            </div>
         </div>
 
-        <div class="list-group col-sm-3">
-            <a th:each="organization :${location.organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
-        </div>
 
-        <div class="list-group col-sm-3">
-            <a th:each="location :${location.subordinateLocations}" th:href="'/locations/'+${location.locationId}" class="list-group-item" th:text="${location.name}"></a>
-        </div>
 
-        <!--<div class="list-group col-sm-3">-->
-            <!--<a th:each="event :${location.eventsHappened}" th:href="'/events/'+${event.eventId}" class="list-group-item" th:text="${event.name}"></a>-->
-        <!--</div>-->
-        <!--This is commented out because if a 4th column list is present then it completely screws up the layout of the page, need a front end dev to solve this problem-->
+        <div class="col-sm-4">
+            <h4>Events Occurred Here</h4>
+            <div class="list-group">
+                <a th:each="event :${location.eventsHappened}" th:href="'/events/'+${event.eventId}" class="list-group-item" th:text="${event.name}"></a>
+            </div>
+        </div>
 
 
     </div><!-- /.row -->
