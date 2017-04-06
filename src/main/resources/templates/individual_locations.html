@@ -63,24 +63,24 @@
     </div>
     <!-- RELATIONSHIPS -->
     <div class="row">
-        <div class="col-sm-4">
-            <h4>Visitors</h4>
+        <div class="col-sm-2 col-sm-offset-2">
+            <div><h4>Visitors</h4></div>
             <div class="list-group">
                 <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
             </div>
         </div>
 
 
-        <div class="col-sm-4">
-            <h4>Organizations</h4>
+        <div class="col-sm-2">
+            <div><h4>Organizations</h4></div>
             <div class="list-group">
                 <a th:each="organization :${location.organizationsHere}" th:href="'/organizations/'+${organization.organizationId}" class="list-group-item" th:text="${organization.name}"></a>
             </div>
 
         </div>
 
-        <div class="col-sm-4">
-            <h4>Subordinate Locations</h4>
+        <div class="col-sm-2">
+            <div><h4>Subordinate Locations</h4></div>
             <div class="list-group">
                 <a th:each="location :${location.subordinateLocations}" th:href="'/locations/'+${location.locationId}" class="list-group-item" th:text="${location.name}"></a>
             </div>
@@ -88,8 +88,8 @@
 
 
 
-        <div class="col-sm-4">
-            <h4>Events Occurred Here</h4>
+        <div class="col-sm-2">
+            <div><h4>Events Occurred Here</h4></div>
             <div class="list-group">
                 <a th:each="event :${location.eventsHappened}" th:href="'/events/'+${event.eventId}" class="list-group-item" th:text="${event.name}"></a>
             </div>
