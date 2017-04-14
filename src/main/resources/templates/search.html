@@ -62,16 +62,37 @@
 <!-- CONTAINER END -->
 
 
+
+
 <!--Scripts Fragment-->
 <script layout:fragment="scripts">
 //<![CDATA[
 
-  var info = get_data('search?query={{query}}');
-  var result = JSON.parse(info);
-  var results = result["results"];
-  // Autofill Search Bar with Previous Search
-  //document.getElementById("form-control").value={{query}};
-  for (var i = 0; i < results.length; i++) {
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+console.log("beginning of script");
+console.log("query: "+getParameterByName('q'));
+
+var info = get_data('search?q='+getParameterByName('q'));
+var result = JSON.parse(info);
+var results = result["results"];
+// Autofill Search Bar with Previous Search
+//document.getElementById("form-control").value={{query}};
+
+console.log(results);
+
+
+for (var i = 0; i < results.length; i++) {
     // Create table row
     var row = document.createElement("TR");
 
@@ -83,9 +104,9 @@
 
     // Grab values for table data
     var num_text = document.createTextNode((i + 1).toString());
-    var pillar_text = document.createTextNode(results[i]["type"]);
+    var pillar_text = document.createTextNode(results[i]["organizationType"]);
     var name_text = document.createTextNode(results[i]["name"]);
-    var desc_text = document.createTextNode(results[i]["desc"]);
+    var desc_text = document.createTextNode(results[i]["description"]);
 
     // Insert values into table data
     num.appendChild(num_text);
@@ -99,12 +120,13 @@
     row.appendChild(name_);
     row.appendChild(desc);
 
-    row.setAttribute("data-href", "/" + results[i]["type"] + "/" + results[i]["id"]);
     row.setAttribute("class", "clickable-row");
+    row.setAttribute("data-href", "/" + "organizations" + "/" + results[i]["organizationId"]);
     document.getElementById("table_results").appendChild(row);
-  }
+}
+console.log("end of script");
 
- //]]>
+//]]>
 </script>
 
 

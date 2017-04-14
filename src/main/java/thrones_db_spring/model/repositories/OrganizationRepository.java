@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
 import thrones_db_spring.model.*;
@@ -83,4 +84,32 @@ public class OrganizationRepository extends AbstractRepository{
 		return organization;
 
 	}
+
+
+
+	public List<Organization> search(String query){
+
+        Session session = factory.openSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Organization> cr = cb.createQuery(Organization.class);
+        Root<Organization> orgRoot=cr.from(Organization.class);
+        cr.select(orgRoot);
+
+        if(query != null && !query.isEmpty()){
+            cr.where(
+                    cb.or(
+                            cb.like(orgRoot.get("name"),query),
+                            cb.like(orgRoot.get("organizationType"),query),
+                            cb.like(orgRoot.get("description"),query))
+                    );
+        }
+
+
+        TypedQuery<Organization> q = session.createQuery(cr);
+
+        List<Organization> organizationList = q.getResultList();
+        session.close();
+        return organizationList;
+
+    }
 }

@@ -115,16 +115,16 @@
 <script src="/js/toggle.js"> </script>
 <script src="/js/table.js"> </script>
 <script>
-      function search() {
-      location.href = "/results?query=" + document.getElementById("query").value;
-      }
-    </script>
+    function search() {
+        location.href = "/results?q=" + document.getElementById("query").value;
+    }
+</script>
 <script>
-      $("#query").keyup(function(event){
-      if(event.keyCode == 13){
-      search();
-      }
-      });
+    $("#query").keyup(function(event){
+        if(event.keyCode == 13){
+            search();
+        }
+    });
 </script>
 
 <script src="/js/pulldata.js"></script>

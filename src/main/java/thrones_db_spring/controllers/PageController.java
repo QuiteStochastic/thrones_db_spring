@@ -75,11 +75,22 @@ public class PageController {
 	}
 
 	@RequestMapping(path="/results",method = RequestMethod.GET)
-	public String searchPage(Model model) {
+	public String searchPage(final HttpServletRequest req,final HttpServletResponse resp, Model model) {
 
 		System.out.println("hit search results page");
 		//model.addAttribute("test", "hello spring");
-		return "search";
+        View resolvedView;
+        MockHttpServletResponse mockResp = new MockHttpServletResponse();
+        try {
+            resolvedView = viewResolver.resolveViewName("search", Locale.US);
+            resolvedView.render(null, req, mockResp);
+            //System.out.println("rendered html : " + mockResp.getContentAsString());
+            return mockResp.getContentAsString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
 	}
 
 	@RequestMapping(path="/characters",method = RequestMethod.GET)

@@ -1,17 +1,13 @@
 package thrones_db_spring.controllers;
 
-import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import thrones_db_spring.model.Character;
 import thrones_db_spring.model.*;
 import thrones_db_spring.model.repositories.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by oliverl1
@@ -40,14 +36,73 @@ public class APIController {
 
     //private Map<String,String> cache=new HashMap<String, String>();
 
+
+
+
+    private String sanitize(String q){
+        String[] injectChars= {"@", "-", ".", "!", "?", ",", "<", ">", "\"", "\'", "=", "_"};
+
+        for(String c: injectChars){
+            q=q.replaceAll(c," ");
+        }
+
+        return q;
+    }
+
+    private List<Object> merge ( List<?>... toMerge){
+
+        int largestList = 0;
+        int totalSize = 0; // every element in the set
+
+        for (List<?> l : toMerge) {
+
+            if(l.size() > largestList){
+                largestList=l.size();
+            }
+            totalSize = totalSize+ l.size();
+
+        }
+
+        List<Object> result = new ArrayList<>(totalSize);
+
+        for(int i=0;i<largestList;i++){
+
+            for(List<?> l : toMerge){
+
+                if(l.size() > i){
+                    result.add(l.get(i));
+                }
+
+            }
+
+        }
+
+        return result;
+    }
+
+
     @RequestMapping(path="/search",method = RequestMethod.GET)
-    public String searchPage(@RequestParam String keyword) {
+    public SearchResult searchAPI(@RequestParam String q) {
 
         System.out.println("hit search api page");
+        //q=sanitize(q);
 
 
+        List<Organization> organizationList=organizationRepository.search(q);
+//        List<Character> characterList=characterRepository.search(keyword);
+//        List<Location> locationList=locationRepository.search(keyword);
+//        List<Event> eventList=eventRepository.search(keyword);
+//        List<Episode> episodeList=episodeRepository.search(keyword);
+//
+//
+//        List<Object> results=merge(organizationList,characterList,locationList,episodeList,eventList);
+        List<Object> results=merge(organizationList);
 
-        return "search";
+        //List<Object> results=new ArrayList<>();
+        //results.addAll(organizationList);
+
+        return new SearchResult(q,results.size(),results);
+
     }
 
     @RequestMapping(path="/characters",method = RequestMethod.GET)
