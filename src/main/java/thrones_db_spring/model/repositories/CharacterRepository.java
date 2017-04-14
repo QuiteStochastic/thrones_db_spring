@@ -85,4 +85,15 @@ public class CharacterRepository extends AbstractRepository{
 
 	}
 
+
+	public List<Character> search(String query){
+
+		Session session = factory.openSession();
+
+		String[] fieldList={"firstName","lastName","alias","description"};
+
+		return super.search(session, Character.class, query, fieldList);
+	}
+
+
 }

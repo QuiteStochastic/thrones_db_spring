@@ -88,4 +88,13 @@ public class EventRepository extends AbstractRepository{
     }
 
 
+    public List<Event> search(String query){
+
+        Session session = factory.openSession();
+
+        String[] fieldList={"name","eventType","description"};
+
+        return super.search(session, Event.class, query, fieldList);
+    }
+
 }

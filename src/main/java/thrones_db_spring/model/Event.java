@@ -2,6 +2,7 @@ package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Event {
 	private String eventType;
 	private String description;
 
+	@JsonView(Event.class)
 	@JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
 	//foreign key
 	//private Integer locationId;
@@ -29,6 +31,7 @@ public class Event {
     @JoinColumn(name="locationId")
     private Location location;
 
+    @JsonView(Event.class)
     @JsonIgnoreProperties({ "eventsHappened"})
     //foreign key
 	//private Integer episodeId;
@@ -36,7 +39,7 @@ public class Event {
     @JoinColumn(name="episodeId")
     private Episode episode;
 
-
+    @JsonView(Event.class)
     @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     //backref= events, secondary =Participant
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -45,6 +48,7 @@ public class Event {
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
     private Set<Character> participants;
 
+    @JsonView(Event.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     //backref=events, secondary = Party
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

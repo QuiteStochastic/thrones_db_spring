@@ -111,4 +111,16 @@ public class EpisodeRepository extends AbstractRepository {
 
 	}
 
+
+	public List<Episode> search(String query){
+
+		Session session = factory.openSession();
+
+		String[] fieldList={"name","description"};
+
+		//,"episodeId","episodeNumber", "season"
+
+		return super.search(session, Episode.class, query, fieldList);
+	}
+
 }

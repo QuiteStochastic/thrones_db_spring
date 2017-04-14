@@ -41,7 +41,7 @@
                 <a th:href="'/characters/'+${character.characterId}">
                     <img class="img-circle img-responsive img-center" th:src="'/images/characters/character'+${character.characterId}+'.png'"/>
                 </a>
-                <h2 th:text="${character.firstName}+' '+${character.lastName}"></h2>
+                <h2 th:text="${character.getFullName()}"></h2>
             </div>
 
 
@@ -65,7 +65,7 @@
         <tr th:each="character : ${characterList}" class="clickable-row" th:attr="data-href='/characters/'+${character.characterId}">
             <td th:text="${character.characterId}"></td>
             <td><div><img class="img-circle" th:src="'/images/characters/character'+${character.characterId}+'.png'"/></div></td>
-            <td th:text="${character.firstName}+' '+${character.lastName}"></td>
+            <td th:text="${character.getFullName()}"></td>
             <td th:text="${character.gender}"></td>
             <td th:text="${character.religion}"></td>
             <td th:text="${character.status}"></td>

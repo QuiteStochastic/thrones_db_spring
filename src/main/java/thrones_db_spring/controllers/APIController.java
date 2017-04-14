@@ -1,5 +1,6 @@
 package thrones_db_spring.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import thrones_db_spring.model.Character;
@@ -39,15 +40,44 @@ public class APIController {
 
 
 
-    private String sanitize(String q){
-        String[] injectChars= {"@", "-", ".", "!", "?", ",", "<", ">", "\"", "\'", "=", "_"};
+/*    private String sanitize(String q){
+        String[] injectChars= {"@", "-", ".", "!", "\\?", ",", "<", ">", "\"", "\'", "=", "_"};
 
         for(String c: injectChars){
             q=q.replaceAll(c," ");
         }
 
         return q;
+    }*/
+
+
+    private String sanitize(String s){
+
+        String result=s;
+        result=result.replaceAll("@","");
+        result=result.replaceAll("-","");
+        result=result.replaceAll("\\.","");
+        result=result.replaceAll("!","");
+        result=result.replaceAll("\\?","");
+        result=result.replaceAll(",","");
+        result=result.replaceAll("<","");
+        result=result.replaceAll(">","");
+        result=result.replaceAll("=","");
+        result=result.replaceAll(";","");
+        result=result.replaceAll("\"","");
+        result=result.replaceAll("'","");
+        result=result.replaceAll("\\\\","");
+        result=result.replaceAll("\\n","");
+        result=result.replaceAll("\\t","");
+
+        result=result.replaceAll("_"," ");
+        result=result.trim();
+
+        //result=result.toUpperCase();
+
+        return result;
     }
+
 
     private List<Object> merge ( List<?>... toMerge){
 
@@ -81,25 +111,26 @@ public class APIController {
     }
 
 
+    //@JsonView(Compact.class)
     @RequestMapping(path="/search",method = RequestMethod.GET)
     public SearchResult searchAPI(@RequestParam String q) {
 
         System.out.println("hit search api page");
-        //q=sanitize(q);
+        q=sanitize(q);
 
 
         List<Organization> organizationList=organizationRepository.search(q);
-//        List<Character> characterList=characterRepository.search(keyword);
-//        List<Location> locationList=locationRepository.search(keyword);
-//        List<Event> eventList=eventRepository.search(keyword);
-//        List<Episode> episodeList=episodeRepository.search(keyword);
-//
-//
-//        List<Object> results=merge(organizationList,characterList,locationList,episodeList,eventList);
-        List<Object> results=merge(organizationList);
+        List<Character> characterList=characterRepository.search(q);
+        List<Location> locationList=locationRepository.search(q);
+        List<Event> eventList=eventRepository.search(q);
+        List<Episode> episodeList=episodeRepository.search(q);
+
+
+        List<Object> results=merge(organizationList,characterList,locationList,episodeList,eventList);
 
         //List<Object> results=new ArrayList<>();
         //results.addAll(organizationList);
+
 
         return new SearchResult(q,results.size(),results);
 

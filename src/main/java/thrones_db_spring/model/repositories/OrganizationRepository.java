@@ -85,31 +85,14 @@ public class OrganizationRepository extends AbstractRepository{
 
 	}
 
-
-
-	public List<Organization> search(String query){
+    public List<Organization> search(String query){
 
         Session session = factory.openSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Organization> cr = cb.createQuery(Organization.class);
-        Root<Organization> orgRoot=cr.from(Organization.class);
-        cr.select(orgRoot);
 
-        if(query != null && !query.isEmpty()){
-            cr.where(
-                    cb.or(
-                            cb.like(orgRoot.get("name"),query),
-                            cb.like(orgRoot.get("organizationType"),query),
-                            cb.like(orgRoot.get("description"),query))
-                    );
-        }
+        String[] fieldList={"name","organizationType","description"};
 
-
-        TypedQuery<Organization> q = session.createQuery(cr);
-
-        List<Organization> organizationList = q.getResultList();
-        session.close();
-        return organizationList;
-
+	    return super.search(session, Organization.class, query, fieldList);
     }
+
+
 }

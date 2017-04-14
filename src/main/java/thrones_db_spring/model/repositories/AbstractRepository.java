@@ -1,7 +1,13 @@
 package thrones_db_spring.model.repositories;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
+import thrones_db_spring.model.Organization;
 
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -49,6 +55,42 @@ abstract class AbstractRepository {
 		prop.setProperty("hibernate.current_session_context_class", "org.hibernate.context.internal.ThreadLocalSessionContext");
 
 		return prop;
+
+	}
+
+
+
+
+	<T> List<T> search(Session session, Class<T> cls,String query, String[] fieldList){
+
+		//Session session = factory.openSession();
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<T> cr = cb.createQuery(cls);
+		Root<T> orgRoot=cr.from(cls);
+		cr.select(orgRoot);
+
+		if(query != null && !query.isEmpty()){
+
+		    Predicate[] predicateList=new Predicate[fieldList.length];
+		    for(int i=0;i<fieldList.length;i++){
+		        predicateList[i]=cb.like(orgRoot.get(fieldList[i]),query);
+            }
+
+		    cr.where(cb.or(predicateList));
+/*			cr.where(
+					cb.or(
+							cb.like(orgRoot.get("name"),query),
+							cb.like(orgRoot.get("organizationType"),query),
+							cb.like(orgRoot.get("description"),query))
+			);*/
+		}
+
+
+		TypedQuery<T> q = session.createQuery(cr);
+
+		List<T> resultList = q.getResultList();
+		session.close();
+		return resultList;
 
 	}
 }

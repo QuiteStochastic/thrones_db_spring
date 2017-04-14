@@ -89,4 +89,15 @@ public class LocationRepository extends AbstractRepository{
     }
 
 
+    public List<Location> search(String query){
+
+        Session session = factory.openSession();
+
+        String[] fieldList={"name","locationType","description"};
+
+        return super.search(session, Location.class, query, fieldList);
+    }
+
+
+
 }

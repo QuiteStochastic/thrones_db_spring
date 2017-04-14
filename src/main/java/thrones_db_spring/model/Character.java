@@ -1,8 +1,6 @@
 package thrones_db_spring.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,6 +29,7 @@ public class Character{
 
 	private String description;
 
+    //@JsonView(Extended.class)
 	@JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="member",
@@ -38,6 +37,7 @@ public class Character{
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
 	private Set<Organization> memberOf;
 
+    @JsonView(Character.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="visitor",
@@ -45,7 +45,7 @@ public class Character{
             inverseJoinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"))
 	private Set<Location> visited;
 
-
+    @JsonView(Character.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="participant",

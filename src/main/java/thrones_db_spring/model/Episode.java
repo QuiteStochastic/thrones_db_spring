@@ -2,6 +2,7 @@ package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Episode {
 	private Integer episodeNumber;
 	private String description;
 
+	@JsonView(Episode.class)
 	@JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @OneToMany(mappedBy = "episode", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Event> eventsHappened;
