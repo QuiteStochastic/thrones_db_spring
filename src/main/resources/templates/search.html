@@ -80,8 +80,8 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-console.log("beginning of script");
-console.log("query: "+getParameterByName('q'));
+//console.log("beginning of script");
+//console.log("query: "+getParameterByName('q'));
 
 var info = get_data('search?q='+getParameterByName('q'));
 var result = JSON.parse(info);
@@ -89,7 +89,7 @@ var results = result["results"];
 // Autofill Search Bar with Previous Search
 //document.getElementById("form-control").value={{query}};
 
-console.log(results);
+//console.log(results);
 
 
 for (var i = 0; i < results.length; i++) {
@@ -104,8 +104,30 @@ for (var i = 0; i < results.length; i++) {
 
     // Grab values for table data
     var num_text = document.createTextNode((i + 1).toString());
-    var pillar_text = document.createTextNode(results[i]["organizationType"]);
-    var name_text = document.createTextNode(results[i]["name"]);
+
+    var pillar_text;
+    var name_text;
+    if(results[i]["characterId"] != undefined){
+        pillar_text=document.createTextNode("Character");
+        name_text=document.createTextNode(results[i]["firstName"]+ " "+results[i]["lastName"]);
+    }
+    else if(results[i]["episodeId"] != undefined){
+        pillar_text=document.createTextNode("Episode");
+        name_text=document.createTextNode("S"+results[i]["season"]+"E"+ results[i]["episodeNumber"] + " "+results[i]["name"]);
+    }
+    else if(results[i]["eventId"] != undefined){
+        pillar_text=document.createTextNode("Event");
+        name_text=document.createTextNode(results[i]["name"]);
+    }
+    else if(results[i]["locationId"] != undefined){
+        pillar_text=document.createTextNode("Location");
+        name_text=document.createTextNode(results[i]["name"]);
+    }
+    else if(results[i]["organizationId"] != undefined){
+        pillar_text=document.createTextNode("Organization");
+        name_text=document.createTextNode(results[i]["name"]);
+    }
+
     var desc_text = document.createTextNode(results[i]["description"]);
 
     // Insert values into table data
@@ -124,7 +146,7 @@ for (var i = 0; i < results.length; i++) {
     row.setAttribute("data-href", "/" + "organizations" + "/" + results[i]["organizationId"]);
     document.getElementById("table_results").appendChild(row);
 }
-console.log("end of script");
+//console.log("end of script");
 
 //]]>
 </script>

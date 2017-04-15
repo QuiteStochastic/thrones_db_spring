@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import thrones_db_spring.model.Character;
 import thrones_db_spring.model.*;
 import thrones_db_spring.model.repositories.*;
+import thrones_db_spring.model.services.SerializationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,7 @@ public class APIController {
     }
 
 
-    //@JsonView(Compact.class)
+    @JsonView(SerializationService.Compact.class)
     @RequestMapping(path="/search",method = RequestMethod.GET)
     public SearchResult searchAPI(@RequestParam String q) {
 
@@ -131,10 +132,33 @@ public class APIController {
         //List<Object> results=new ArrayList<>();
         //results.addAll(organizationList);
 
+        return new SearchResult(q,results.size(),results);
+    }
+
+
+    //@JsonView(SerializationService.Extended.class)
+/*    @RequestMapping(path="/searchExtended",method = RequestMethod.GET)
+    public SearchResult searchExtendedAPI(@RequestParam String q) {
+
+        System.out.println("hit search api page");
+        q=sanitize(q);
+
+
+        List<Organization> organizationList=organizationRepository.search(q);
+        List<Character> characterList=characterRepository.search(q);
+        List<Location> locationList=locationRepository.search(q);
+        List<Event> eventList=eventRepository.search(q);
+        List<Episode> episodeList=episodeRepository.search(q);
+
+
+        List<Object> results=merge(organizationList,characterList,locationList,episodeList,eventList);
+
+        //List<Object> results=new ArrayList<>();
+        //results.addAll(organizationList);
 
         return new SearchResult(q,results.size(),results);
+    }*/
 
-    }
 
     @RequestMapping(path="/characters",method = RequestMethod.GET)
     public List<Character> charactersAPI(){

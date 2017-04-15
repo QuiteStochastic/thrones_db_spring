@@ -1,5 +1,8 @@
 package thrones_db_spring.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import thrones_db_spring.model.services.SerializationService;
+
 import java.util.List;
 
 /**
@@ -7,8 +10,11 @@ import java.util.List;
  */
 public class SearchResult {
 
+    @JsonView(SerializationService.Compact.class)
     private String query;
+    @JsonView(SerializationService.Compact.class)
     private int resultCount;
+    @JsonView(SerializationService.Compact.class)
     private List<?> results;
 
     public SearchResult(String query, int resultCount,List<?> results){

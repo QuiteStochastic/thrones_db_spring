@@ -1,6 +1,7 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.*;
+import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,24 +13,32 @@ import java.util.Set;
 public class Character{
 
 	//primary key
-	@Id
+    @JsonView(SerializationService.Compact.class)
+    @Id
 	private Integer characterId;
 
+    @JsonView(SerializationService.Compact.class)
 	private String firstName;
 
+    @JsonView(SerializationService.Compact.class)
 	private String lastName;
 
+    @JsonView(SerializationService.Compact.class)
 	private String alias;
 
+    @JsonView(SerializationService.Compact.class)
 	private String gender;
 
+    @JsonView(SerializationService.Compact.class)
 	private String religion;
 
+    @JsonView(SerializationService.Compact.class)
 	private String status;
 
+    @JsonView(SerializationService.Compact.class)
 	private String description;
 
-    //@JsonView(Extended.class)
+    @JsonView(SerializationService.Extended.class)
 	@JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="member",
@@ -37,7 +46,7 @@ public class Character{
             inverseJoinColumns=@JoinColumn(name="organizationId", referencedColumnName="organizationId"))
 	private Set<Organization> memberOf;
 
-    @JsonView(Character.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name="visitor",
@@ -45,7 +54,7 @@ public class Character{
             inverseJoinColumns=@JoinColumn(name="locationId", referencedColumnName="locationId"))
 	private Set<Location> visited;
 
-    @JsonView(Character.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="participant",

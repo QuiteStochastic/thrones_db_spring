@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,16 +18,19 @@ import java.util.Set;
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property = "@episodeJsonId")
 public class Episode {
 
-
+    @JsonView(SerializationService.Compact.class)
 	@Id
 	private Integer episodeId;
-
+    @JsonView(SerializationService.Compact.class)
 	private String name;
-	private Integer season;
-	private Integer episodeNumber;
-	private String description;
+    @JsonView(SerializationService.Compact.class)
+    private Integer season;
+    @JsonView(SerializationService.Compact.class)
+    private Integer episodeNumber;
+    @JsonView(SerializationService.Compact.class)
+    private String description;
 
-	@JsonView(Episode.class)
+    @JsonView(SerializationService.Extended.class)
 	@JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @OneToMany(mappedBy = "episode", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Event> eventsHappened;

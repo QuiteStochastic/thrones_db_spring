@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,13 +18,17 @@ import java.util.Set;
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property = "@eventJsonId")
 public class Event {
 
-	@Id
+    @JsonView(SerializationService.Compact.class)
+    @Id
 	private Integer eventId;
-	private String name;
-	private String eventType;
-	private String description;
+    @JsonView(SerializationService.Compact.class)
+    private String name;
+    @JsonView(SerializationService.Compact.class)
+    private String eventType;
+    @JsonView(SerializationService.Compact.class)
+    private String description;
 
-	@JsonView(Event.class)
+    @JsonView(SerializationService.Extended.class)
 	@JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
 	//foreign key
 	//private Integer locationId;
@@ -31,7 +36,7 @@ public class Event {
     @JoinColumn(name="locationId")
     private Location location;
 
-    @JsonView(Event.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "eventsHappened"})
     //foreign key
 	//private Integer episodeId;
@@ -39,7 +44,7 @@ public class Event {
     @JoinColumn(name="episodeId")
     private Episode episode;
 
-    @JsonView(Event.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     //backref= events, secondary =Participant
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -48,7 +53,7 @@ public class Event {
             inverseJoinColumns=@JoinColumn(name="characterId", referencedColumnName="characterId"))
     private Set<Character> participants;
 
-    @JsonView(Event.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     //backref=events, secondary = Party
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

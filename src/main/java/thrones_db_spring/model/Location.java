@@ -1,6 +1,7 @@
 package thrones_db_spring.model;
 
 import com.fasterxml.jackson.annotation.*;
+import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,21 +15,24 @@ import java.util.Set;
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class,property = "@locationJsonId")
 public class Location {
 
-
+    @JsonView(SerializationService.Compact.class)
     @Id
     private Integer locationId;
+    @JsonView(SerializationService.Compact.class)
     private String name;
+    @JsonView(SerializationService.Compact.class)
     private String locationType;
+    @JsonView(SerializationService.Compact.class)
     private String description;
 
-    @JsonView(Location.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="superiorLocationId")
     private Location superiorLocation;
 
 
-    @JsonView(Location.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "memberOf", "visited","participantOf","charactersVisited" })
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name="visitor",
@@ -37,21 +41,21 @@ public class Location {
     private Set<Character> charactersVisited;
 
 
-    @JsonView(Location.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "location", "episode","participants","parties" })
     @OneToMany(mappedBy = "location",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="locationId")
     private Set<Event> eventsHappened;
 
 
-    @JsonView(Location.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "seatLocation", "leaderCharacter","members","partyTo" })
     @OneToMany(mappedBy = "seatLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="seatLocationId")
     private Set<Organization> organizationsHere;
 
 
-    @JsonView(Location.class)
+    @JsonView(SerializationService.Extended.class)
     @JsonIgnoreProperties({ "eventsHappened", "organizationsHere","subordinateLocations","charactersVisited" })
     @OneToMany(mappedBy = "superiorLocation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     //@JoinColumn(name="seatLocationId")
