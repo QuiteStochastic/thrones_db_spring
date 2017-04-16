@@ -72,6 +72,10 @@ public class APIController {
     public SearchResult searchAPI(@RequestParam String q) {
 
         System.out.println("hit search api page");
+        if(q==null || q.equals("")){
+            System.out.println("query is blank string");
+            return null;
+        }
         q= AbstractRepository.sanitize(q);
 
 
