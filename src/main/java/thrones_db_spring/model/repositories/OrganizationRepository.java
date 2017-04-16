@@ -4,11 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.stereotype.Repository;
-import thrones_db_spring.model.*;
 import thrones_db_spring.model.Character;
+import thrones_db_spring.model.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.TypedQuery;

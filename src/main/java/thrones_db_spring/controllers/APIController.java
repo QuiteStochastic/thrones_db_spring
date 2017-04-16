@@ -37,48 +37,7 @@ public class APIController {
 
 
     //private Map<String,String> cache=new HashMap<String, String>();
-
-
-
-
-/*    private String sanitize(String q){
-        String[] injectChars= {"@", "-", ".", "!", "\\?", ",", "<", ">", "\"", "\'", "=", "_"};
-
-        for(String c: injectChars){
-            q=q.replaceAll(c," ");
-        }
-
-        return q;
-    }*/
-
-
-    private String sanitize(String s){
-
-        String result=s;
-        result=result.replaceAll("@","");
-        result=result.replaceAll("-","");
-        result=result.replaceAll("\\.","");
-        result=result.replaceAll("!","");
-        result=result.replaceAll("\\?","");
-        result=result.replaceAll(",","");
-        result=result.replaceAll("<","");
-        result=result.replaceAll(">","");
-        result=result.replaceAll("=","");
-        result=result.replaceAll(";","");
-        result=result.replaceAll("\"","");
-        result=result.replaceAll("'","");
-        result=result.replaceAll("\\\\","");
-        result=result.replaceAll("\\n","");
-        result=result.replaceAll("\\t","");
-
-        result=result.replaceAll("_"," ");
-        result=result.trim();
-
-        //result=result.toUpperCase();
-
-        return result;
-    }
-
+    
 
     private List<Object> merge ( List<?>... toMerge){
 
@@ -91,7 +50,6 @@ public class APIController {
                 largestList=l.size();
             }
             totalSize = totalSize+ l.size();
-
         }
 
         List<Object> result = new ArrayList<>(totalSize);
@@ -99,13 +57,10 @@ public class APIController {
         for(int i=0;i<largestList;i++){
 
             for(List<?> l : toMerge){
-
                 if(l.size() > i){
                     result.add(l.get(i));
                 }
-
             }
-
         }
 
         return result;
@@ -117,7 +72,7 @@ public class APIController {
     public SearchResult searchAPI(@RequestParam String q) {
 
         System.out.println("hit search api page");
-        q=sanitize(q);
+        q= AbstractRepository.sanitize(q);
 
 
         List<Organization> organizationList=organizationRepository.search(q);

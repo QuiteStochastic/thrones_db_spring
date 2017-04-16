@@ -2,18 +2,20 @@ package thrones_db_spring.model.repositories;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
-import thrones_db_spring.model.Organization;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 import java.util.List;
 import java.util.Properties;
 
 /**
  * Created by oliverlee
  */
-abstract class AbstractRepository {
+public abstract class AbstractRepository {
 
 
 
@@ -66,14 +68,20 @@ abstract class AbstractRepository {
 		//Session session = factory.openSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<T> cr = cb.createQuery(cls);
-		Root<T> orgRoot=cr.from(cls);
-		cr.select(orgRoot);
+        EntityType<T> entityType = session.getMetamodel().entity(cls);
+		Root<T> root=cr.from(cls);
+		cr.select(root);
 
 		if(query != null && !query.isEmpty()){
 
 		    Predicate[] predicateList=new Predicate[fieldList.length];
 		    for(int i=0;i<fieldList.length;i++){
-		        predicateList[i]=cb.like(orgRoot.get(fieldList[i]),query);
+		        //predicateList[i]=cb.like(root.get(fieldList[i]),query);
+                predicateList[i]=cb.like(
+                                            cb.lower(
+                                                    root.get(
+                                                            entityType.getDeclaredSingularAttribute(fieldList[i], String.class))),
+                                            query);
             }
 
 		    cr.where(cb.or(predicateList));
@@ -93,4 +101,36 @@ abstract class AbstractRepository {
 		return resultList;
 
 	}
+
+    public static String sanitize(String s){
+
+        String result=s;
+        result=result.replaceAll("@","");
+        result=result.replaceAll("-","");
+        result=result.replaceAll("\\.","");
+        result=result.replaceAll("!","");
+        result=result.replaceAll("\\?","");
+        result=result.replaceAll(",","");
+        result=result.replaceAll("<","");
+        result=result.replaceAll(">","");
+        result=result.replaceAll("=","");
+        result=result.replaceAll(";","");
+        result=result.replaceAll("\"","");
+        result=result.replaceAll("'","");
+        result=result.replaceAll("\\\\","");
+        result=result.replaceAll("\\n","");
+        result=result.replaceAll("\\t","");
+
+        result=result.replaceAll("_"," ");
+        result=result.trim();
+
+        result=result.toLowerCase();
+
+        result="%"+result +"%";
+
+
+        return result;
+    }
+
+
 }

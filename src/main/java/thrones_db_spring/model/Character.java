@@ -1,10 +1,12 @@
 package thrones_db_spring.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

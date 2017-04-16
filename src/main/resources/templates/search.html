@@ -44,7 +44,7 @@
 
     <!-- <hr> -->
     <!-- Search Results -->
-    <table class="table table-hover">
+    <table class="row table table-hover">
         <thead>
         <tr>
             <th>#</th>
@@ -106,25 +106,42 @@ for (var i = 0; i < results.length; i++) {
     var num_text = document.createTextNode((i + 1).toString());
 
     var pillar_text;
+    var pillar_name;
+    var id_name;
     var name_text;
     if(results[i]["characterId"] != undefined){
         pillar_text=document.createTextNode("Character");
-        name_text=document.createTextNode(results[i]["firstName"]+ " "+results[i]["lastName"]);
+        pillar_name="characters";
+        id_name="characterId";
+        if(results[i]["lastName"] != null){
+            name_text=document.createTextNode(results[i]["firstName"]+ " "+results[i]["lastName"]);
+        }
+        else{
+            name_text=document.createTextNode(results[i]["firstName"]);
+        }
     }
     else if(results[i]["episodeId"] != undefined){
         pillar_text=document.createTextNode("Episode");
+        pillar_name="episodes";
+        id_name="episodeId";
         name_text=document.createTextNode("S"+results[i]["season"]+"E"+ results[i]["episodeNumber"] + " "+results[i]["name"]);
     }
     else if(results[i]["eventId"] != undefined){
         pillar_text=document.createTextNode("Event");
+        pillar_name="events";
+        id_name="eventId";
         name_text=document.createTextNode(results[i]["name"]);
     }
     else if(results[i]["locationId"] != undefined){
         pillar_text=document.createTextNode("Location");
+        pillar_name="locations";
+        id_name="locationId";
         name_text=document.createTextNode(results[i]["name"]);
     }
     else if(results[i]["organizationId"] != undefined){
         pillar_text=document.createTextNode("Organization");
+        pillar_name="organizations";
+        id_name="organizationId";
         name_text=document.createTextNode(results[i]["name"]);
     }
 
@@ -143,7 +160,7 @@ for (var i = 0; i < results.length; i++) {
     row.appendChild(desc);
 
     row.setAttribute("class", "clickable-row");
-    row.setAttribute("data-href", "/" + "organizations" + "/" + results[i]["organizationId"]);
+    row.setAttribute("data-href", "/" + pillar_name + "/" + results[i][id_name]);
     document.getElementById("table_results").appendChild(row);
 }
 //console.log("end of script");

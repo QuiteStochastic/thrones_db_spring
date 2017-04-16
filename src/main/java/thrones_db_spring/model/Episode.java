@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import thrones_db_spring.model.services.SerializationService;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 /**
