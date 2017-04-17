@@ -44,7 +44,7 @@
 
     <!-- <hr> -->
     <!-- Search Results -->
-    <table class="row table table-hover">
+    <table class="row table table-hover tablesorter" id="tableView">
         <thead>
         <tr>
             <th>#</th>
@@ -165,6 +165,8 @@ for (var i = 0; i < results.length; i++) {
 }
 //console.log("end of script");
 
+
+$("#tableView").tablesorter();
 //]]>
 </script>
 
