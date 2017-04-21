@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
-import thrones_db_spring.model.Character;
-import thrones_db_spring.model.*;
+import thrones_db_spring.model.pojos.pillars.*;
+import thrones_db_spring.model.pojos.pillars.Character;
 import thrones_db_spring.model.repositories.*;
 
 import javax.servlet.http.HttpServletRequest;

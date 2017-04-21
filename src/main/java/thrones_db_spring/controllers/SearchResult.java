@@ -1,4 +1,4 @@
-package thrones_db_spring.model;
+package thrones_db_spring.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import thrones_db_spring.model.services.SerializationService;

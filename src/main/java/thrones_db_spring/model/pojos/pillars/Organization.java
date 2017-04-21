@@ -1,4 +1,4 @@
-package thrones_db_spring.model;
+package thrones_db_spring.model.pojos.pillars;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

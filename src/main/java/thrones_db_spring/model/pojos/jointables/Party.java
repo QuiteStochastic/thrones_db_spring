@@ -1,8 +1,10 @@
-package thrones_db_spring.model;
+package thrones_db_spring.model.pojos.jointables;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import thrones_db_spring.model.pojos.pillars.Event;
+import thrones_db_spring.model.pojos.pillars.Organization;
 
 import javax.persistence.*;
 

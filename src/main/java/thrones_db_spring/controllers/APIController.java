@@ -3,8 +3,8 @@ package thrones_db_spring.controllers;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import thrones_db_spring.model.Character;
-import thrones_db_spring.model.*;
+import thrones_db_spring.model.pojos.pillars.*;
+import thrones_db_spring.model.pojos.pillars.Character;
 import thrones_db_spring.model.repositories.*;
 import thrones_db_spring.model.services.SerializationService;
 

@@ -2,20 +2,15 @@ package thrones_db_spring.model.repositories;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import thrones_db_spring.model.Character;
-import thrones_db_spring.model.*;
+import thrones_db_spring.model.pojos.pillars.Event;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by oliverlee
@@ -23,9 +18,11 @@ import java.util.Properties;
 @Repository
 public class EventRepository extends AbstractRepository{
 
-	private SessionFactory factory;
+    @Autowired
+    private SessionFactory factory;
 
 
+/*
 	@PostConstruct
 	public void initFactory(){
 
@@ -50,6 +47,7 @@ public class EventRepository extends AbstractRepository{
 			throw new ExceptionInInitializerError(ex);
 		}
 	}
+*/
 
 
 
