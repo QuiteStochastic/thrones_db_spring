@@ -149,9 +149,23 @@ for (var i = 0; i < results.length; i++) {
 
     // Insert values into table data
     num.appendChild(num_text);
-    pillar.appendChild(pillar_text);
-    name_.appendChild(name_text);
-    desc.appendChild(desc_text);
+
+    var pillar_link = document.createElement("A");
+    pillar_link.setAttribute("href","/" + pillar_name);
+    pillar_link.appendChild(pillar_text);
+    pillar.appendChild(pillar_link);
+
+    var name_link = document.createElement("A");
+    name_link.setAttribute("href","/" + pillar_name + "/" + results[i][id_name]);
+    name_link.appendChild(name_text);
+    name_.appendChild(name_link);
+
+    var desc_link = document.createElement("A");
+    desc_link.setAttribute("href","/" + pillar_name + "/" + results[i][id_name]);
+    desc_link.appendChild(desc_text);
+    desc.appendChild(desc_link);
+
+
 
     // Append table data to table row
     row.appendChild(num);
@@ -160,7 +174,7 @@ for (var i = 0; i < results.length; i++) {
     row.appendChild(desc);
 
     row.setAttribute("class", "clickable-row");
-    row.setAttribute("data-href", "/" + pillar_name + "/" + results[i][id_name]);
+    //row.setAttribute("data-href", "/" + pillar_name + "/" + results[i][id_name]);//for some reason the data-href just doesn't work in the search page
     document.getElementById("table_results").appendChild(row);
 }
 //console.log("end of script");
