@@ -1,6 +1,7 @@
 package thrones_db_spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ import java.util.*;
  * Created by oliverlee
  */
 @RestController
-public class PageController {
+public class PageController implements ErrorController {
 
 	@Autowired
 	private EpisodeRepository episodeRepository;
@@ -57,21 +58,6 @@ public class PageController {
         else{
             return renderAndCachePage(req,model,"main","main");
         }
-	}
-
-	@RequestMapping(path="/about",method = RequestMethod.GET)
-	public String aboutPage(final HttpServletRequest req,final HttpServletResponse resp,Model model){
-
-		System.out.println("hit about page");
-
-        if(renderedCache.containsKey("about")){
-            System.out.println("returning page from cache");
-            return renderedCache.get("about");
-        }
-        else{
-            return renderAndCachePage(req,model,"about","about");
-        }
-
 	}
 
 	@RequestMapping(path="/results",method = RequestMethod.GET)
@@ -274,8 +260,19 @@ public class PageController {
 
 	}
 
+    @RequestMapping(path = "/error")
+    public String error() {
+        return "<html>\n" +
+                "<body>\n" +
+                "    <p>Error</p>\n" +
+                "<body/>\n" +
+                "<html/>";
+    }
 
-
+    @Override
+    public String getErrorPath() {
+        return "/error";
+    }
 
 
 
