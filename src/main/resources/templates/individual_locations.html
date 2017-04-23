@@ -66,7 +66,7 @@
         <div class="col-sm-2 col-sm-offset-2">
             <div><h4>Visitors</h4></div>
             <div class="list-group">
-                <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.firstName}+' '+${visitor.lastName}"></a>
+                <a th:each="visitor : ${location.charactersVisited}" th:href="'/characters/'+${visitor.characterId}" class="list-group-item" th:text="${visitor.fullName}"></a>
             </div>
         </div>
 
